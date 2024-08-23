@@ -1,0 +1,9 @@
+.App{
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: #fff;
+    width: auto;
+    position: relative;
+    min-height: 100%;
+    box-shadow: 0 0 20px #0000000d;
+}
