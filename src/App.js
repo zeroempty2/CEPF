@@ -6,12 +6,23 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <div className = "search-bar">
+        <p>CEP</p>
+                <input
+                  className='comment-text-input'
+                  type="text"
+                  placeholder="검색어를 입력하세요"
+                />
+                <button type="submit" className='comment-submit-button'>검색</button>
+      </div>
       <div className = "wrapper">
-      <nav>
-    <Link to = "/"> Home </Link>
-    </nav>
+
+
     </div>
 
+    <div className="under-bar">
+
+  </div>
     <Routes>
       <Route path="/" element={<Home />} />
     </Routes>
