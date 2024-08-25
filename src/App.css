@@ -47,6 +47,29 @@ html, body, #root {
   justify-content: center; /* 내용 중앙 정렬 */
   z-index: 1000; /* 다른 요소들보다 위에 위치 */
 }
+.wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.store-type{
+  margin-top: 48px;
+  max-width: 480px;
+  height: 55px;
+  background: #fff;
+  border-bottom: 1px solid #ccc; 
+  display: flex;
+  flex-direction: row;
+}
+
+.event-type{
+  max-width: 480px;
+  height: 55px;
+  background: #fff;
+  border-bottom: 1px solid #ccc; 
+  display: flex;
+  flex-direction: row;
+}
 
 .App-logo {
   height: 40vmin;
