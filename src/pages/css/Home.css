@@ -1,9 +1,16 @@
-.App{
-    max-width: 480px;
-    margin: 0 auto;
-    background-color: #fff;
-    width: auto;
-    position: relative;
-    min-height: 100%;
-    box-shadow: 0 0 20px #0000000d;
+.item-list {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열로 설정 */
+    gap: 10px; /* 아이템 간의 간격 설정 */
+    padding-bottom: 60px; 
+}
+
+.item {
+    width: 100%; /* 그리드 셀에 맞게 너비를 100%로 설정 */
+    box-sizing: border-box;
+    background-color: #f0f0f0; /* 예시를 위한 배경색 */
+    height: 200px; /* 높이 설정 */
 }
