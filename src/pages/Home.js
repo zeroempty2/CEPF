@@ -1,38 +1,42 @@
-//함수형 컴포넌트
-import React from "react"
+import React, { useState, useEffect } from 'react';
 import './css/Home.css';
+import axios from 'axios';
 
-const Home = () => {
+import { URL_VARIABLE } from "./export/ExportUrl"
 
-
-    return (
-        <div class="item-list">
-            <div class="item">1</div>
-            <div class="item">2</div>
-            <div class="item">3</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-            <div class="item">4</div>
-        </div>
+const Product = ({ product }) => {  
+    return(
+        <li className="item">
+            <img src={product.productImg} alt="" />
+        </li>
     )
 }
 
-export default Home; 
+const Home = () => {
+    const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        fetchProducts();
+    }, []);
 
-//class형 컴포넌트
-// import React, {Component} from "react"
+    const fetchProducts = async () => {
+        try {
+            const response = await axios.get(`${URL_VARIABLE}products?page=${0}&size=10`);
+            const data = Array.isArray(response.data.content) ? response.data.content : [];
+            setProducts(data);
+        } catch (error) {
+            console.error(error);
+            setProducts([]);
+        }
+    }
 
-// class Home extends Component{
-//     render(){
-//         return <h1>Home 화면</h1>
-//     }
-// }
+    return (
+        <ul className="item-list">
+            {
+                products.map(product => (<Product  key={product.productId} product={product} />))
+            }
+        </ul>
+    )
+}
 
-// export default Home;
-
+export default Home;

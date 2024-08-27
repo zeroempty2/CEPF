@@ -1,7 +1,9 @@
 .item-list {
+    list-style: none; 
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
+    padding: 0; 
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2열로 설정 */
     gap: 10px; /* 아이템 간의 간격 설정 */
@@ -11,6 +13,16 @@
 .item {
     width: 100%; /* 그리드 셀에 맞게 너비를 100%로 설정 */
     box-sizing: border-box;
-    background-color: #f0f0f0; /* 예시를 위한 배경색 */
+    background-color: #ffffff; /* 예시를 위한 배경색 */
     height: 200px; /* 높이 설정 */
+}
+
+.item img {
+    max-width: 100%;  /* 컨테이너의 너비를 초과하지 않도록 설정 */
+    height: auto;     /* 이미지 비율 유지 */
+    display: block;   /* 이미지 아래의 여백 제거 */
+}
+
+.item-list::marker {
+    display: none;
 }
