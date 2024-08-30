@@ -14,15 +14,63 @@
     width: 100%; /* 그리드 셀에 맞게 너비를 100%로 설정 */
     box-sizing: border-box;
     background-color: #ffffff; /* 예시를 위한 배경색 */
-    height: 200px; /* 높이 설정 */
+    height: 295px; /* 높이 설정 */
+    outline: 1px solid #00000041; 
+    border-radius: 10px; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
-.item img {
-    max-width: 100%;  /* 컨테이너의 너비를 초과하지 않도록 설정 */
-    height: auto;     /* 이미지 비율 유지 */
-    display: block;   /* 이미지 아래의 여백 제거 */
+.product-img {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 설정 */
+    margin-top:12px;
+}
+
+.product-img img {
+    width: 100%;       /* 부모 div의 너비에 맞춤 */
+    height: 100%;      /* 부모 div의 높이에 맞춤 */
+    object-fit: cover; /* 이미지가 컨테이너에 맞게 자르거나 조정되도록 설정 */
+    display: block;    /* 이미지 아래의 여백 제거 */
 }
 
 .item-list::marker {
     display: none;
+}
+
+.product-name {
+    width: 100%;              
+    white-space: nowrap;    
+    overflow: hidden;         
+    text-overflow: ellipsis;  
+    text-align: center; 
+    margin-top: 17px;       
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: 550;
+}
+.product-price {
+    width: 100%;              
+    white-space: nowrap;    
+    overflow: hidden;         
+    text-overflow: ellipsis;  
+    text-align: center; 
+    margin-top: 5px;       
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.product-price .bold {
+    font-size: 20px;
+    font-weight: bold; 
 }
