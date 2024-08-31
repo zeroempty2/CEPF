@@ -11,11 +11,27 @@ const Product = ({ product }) => {
         }
         return price;
     };
+    const cuImg = '/CU.png';
+    const emartImg = '/Emart24.png';
+    const gs25Img = '/GS25.png';
 
     const formattedPrice = formatPrice(product.productPrice);
 
+    //편의점, 이벤트 뱃지 추가
     return (
         <li className="item">
+            <div className="badge-left"><span className='event-classification'>{product.eventClassification}</span></div>
+            <div className="badge-right">
+            {product.convenienceClassification === 'CU' && (
+                <img src={cuImg} alt="CU" className="convenience-img" />
+            )}
+            {product.convenienceClassification === 'GS25' && (
+                <img src={gs25Img} alt="GS25" className="convenience-img" />
+            )}
+            {product.convenienceClassification === 'Emart24' && (
+                <img src={emartImg} alt="Emart24" className="convenience-img" />
+            )}
+            </div>
             <div className='product-img'> 
                 <img src={product.productImg} alt="" />
             </div>

@@ -13,13 +13,53 @@
 .item {
     width: 100%; /* 그리드 셀에 맞게 너비를 100%로 설정 */
     box-sizing: border-box;
-    background-color: #ffffff; /* 예시를 위한 배경색 */
-    height: 295px; /* 높이 설정 */
+    background-color: #ffffff; 
+    height: 295px; 
     outline: 1px solid #00000041; 
     border-radius: 10px; 
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative; 
+}
+
+.badge-left {
+    width: 45px;
+    height: 35px; 
+    background-color: rgba(0, 162, 255, 0.685); 
+    position: absolute; 
+    top: 8px;
+    left: 9px;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    display:flex;
+}
+
+.badge-right {
+    width: 45px;
+    height: 35px; 
+    position: absolute; 
+    top: 8px;
+    right: 9px; 
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.convenience-img {
+    max-width: 100%; /* 배지 너비에 맞게 이미지 크기 조정 */
+    max-height: 100%; /* 배지 높이에 맞게 이미지 크기 조정 */
+    border-radius: 30px; /* 배지의 모서리 둥글게 */
+}
+
+.event-classification{
+    color: white;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none; 
 }
 
 .product-img {
@@ -55,6 +95,7 @@
     margin-left: 5px;
     margin-right: 5px;
     font-weight: 550;
+    user-select: none; 
 }
 .product-price {
     width: 100%;              
@@ -68,9 +109,11 @@
     font-size: 16px;
     margin-left: 5px;
     margin-right: 5px;
+    user-select: none; 
 }
 
 .product-price .bold {
     font-size: 20px;
     font-weight: bold; 
+    user-select: none; 
 }
