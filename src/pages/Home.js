@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './css/Home.css';
 import axios from 'axios';
 
-import { URL_VARIABLE } from "./export/ExportUrl"
+import { URL_VARIABLE } from "./export/ExportUrl";
 
 const Product = ({ product }) => {
     const formatPrice = (price) => {
@@ -17,20 +17,19 @@ const Product = ({ product }) => {
 
     const formattedPrice = formatPrice(product.productPrice);
 
-    //편의점, 이벤트 뱃지 추가
     return (
         <li className="item">
             <div className="badge-left"><span className='event-classification'>{product.eventClassification}</span></div>
             <div className="badge-right">
-            {product.convenienceClassification === 'CU' && (
-                <img src={cuImg} alt="CU" className="convenience-img" />
-            )}
-            {product.convenienceClassification === 'GS25' && (
-                <img src={gs25Img} alt="GS25" className="convenience-img" />
-            )}
-            {product.convenienceClassification === 'Emart24' && (
-                <img src={emartImg} alt="Emart24" className="convenience-img" />
-            )}
+                {product.convenienceClassification === 'CU' && (
+                    <img src={cuImg} alt="CU" className="convenience-img" />
+                )}
+                {product.convenienceClassification === 'GS25' && (
+                    <img src={gs25Img} alt="GS25" className="convenience-img" />
+                )}
+                {product.convenienceClassification === 'Emart24' && (
+                    <img src={emartImg} alt="Emart24" className="convenience-img" />
+                )}
             </div>
             <div className='product-img'> 
                 <img src={product.productImg} alt="" />
@@ -45,30 +44,48 @@ const Product = ({ product }) => {
    
 const Home = () => {
     const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(0);
+    const [totalPage, setTotalPage] = useState(0);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
-
+    const loadMoreData = () => {
+        if (page < totalPage - 1) { 
+            setPage(prevPage => prevPage + 1);
+        }
+    };
+    
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(`${URL_VARIABLE}products?page=${0}&size=10`);
-            console.log(response);
+            const response = await axios.get(`${URL_VARIABLE}products?page=${page}&size=10`);
             const data = Array.isArray(response.data.content) ? response.data.content : [];
-            setProducts(data);
+            setProducts(prevProducts => [...prevProducts, ...data]);
+            setTotalPage(response.data.totalPages); 
         } catch (error) {
             console.error(error);
-            setProducts([]);
         }
-    }
+    };
+    
+    useEffect(() => {
+        fetchProducts();
+    }, [page]);
+    
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
+                loadMoreData();
+            }
+        };
+    
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [page, totalPage]);
 
     return (
         <ul className="item-list">
-            {
-                products.map(product => (<Product  key={product.productId} product={product} />))
-            }
+            {products.map(product => (
+                <Product key={product.productId} product={product} />
+            ))}
         </ul>
-    )
-}
+    );
+};
 
 export default Home;
