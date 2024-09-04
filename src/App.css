@@ -63,8 +63,8 @@ html, body, #root {
   user-select: none; 
 }
 .submit-search{
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   margin-left: 5px;
 }
 .submit-search-img{
@@ -125,6 +125,7 @@ html, body, #root {
   flex-direction: column;
   margin-left:20px;
   margin-top:5px;
+  position: relative;
 }
 .store-type-icon span{
   font-size: 12px;
@@ -139,6 +140,38 @@ html, body, #root {
   border-radius: 50%; 
   border: 1px solid #ccc;
 }
+
+.store-type-icon.selected .store-type-img {
+  border: 1px solid rgba(0, 162, 255, 0.685); 
+  border-radius: 50%; 
+}
+
+.store-type-icon.selected span {
+  color: rgba(0, 162, 255, 0.685); 
+}
+
+.store-type-icon .close-btn {
+  position: absolute;
+  top: -2px; /* 아이콘의 오른쪽 상단 모서리에 위치 */
+  right: -2px; /* 아이콘의 오른쪽 상단 모서리에 위치 */
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 15px; /* 버튼의 너비 */
+  height: 15px; /* 버튼의 높이 */
+  font-size: 10px; /* 버튼의 폰트 크기 */
+  line-height: 14px; /* 버튼의 높이와 동일하게 설정하여 텍스트 수직 정렬 */
+  text-align: center; /* 텍스트 수평 중앙 정렬 */
+  display: none;
+  cursor: pointer;
+  padding: 0; /* 패딩 제거 */
+}
+
+.store-type-icon.selected .close-btn {
+  display: block; 
+}
+
 .event-type{
   max-width: 480px;
   height: 50px;
@@ -162,11 +195,20 @@ html, body, #root {
 
 .event-type-tab span{
   font-size: 15px;
-  font-weight: 550;
+  font-weight: 600;
   color: #222222; 
   font-family: "Nanum Gothic", sans-serif;
   font-style: normal;
   user-select: none; 
+}
+
+.event-type-tab.selected {
+  background-color: #007bff; 
+  border: 1px solid #007bff; 
+}
+
+.event-type-tab.selected span {
+  color: #ffffff; 
 }
 
 .App-logo {

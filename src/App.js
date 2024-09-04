@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {Routes,Route,Link} from "react-router-dom";
 import Home from "./pages/Home";
 import './App.css';
@@ -16,6 +16,48 @@ function App() {
   const emart24Icon = '/Emart24.png'
   const gs25Icon = '/GS25.png'  
   const searchIcon2 = '/search2.png'
+  const [selected, setSelected] = useState(["ALL"]);
+  const [eventSelected, setEventSelected] = useState(['전체']);
+
+  const handleSelect = (store) => {
+    if (store === "ALL") {
+      setSelected(["ALL"]);
+    } else {
+      if (selected.includes("ALL")) {
+        setSelected([]);
+      }
+
+      setSelected((prevSelected) => {
+        if (prevSelected.includes(store)) {
+          return prevSelected.filter((s) => s !== store); 
+        } else {
+          return [...prevSelected, store]; 
+        }
+      });
+    }
+  };
+
+  const handleDeselect = (event, store) => {
+    event.stopPropagation(); 
+    setSelected((prevSelected) => prevSelected.filter((s) => s !== store));
+  };
+
+  const handleEventSelect = (eventType) => {
+    setEventSelected((prevSelected) => {
+      if (eventType === '전체') {
+        return ['전체'];
+      } else {
+        if (prevSelected.includes('전체')) {
+          return [eventType];
+        } else {
+          return prevSelected.includes(eventType)
+            ? prevSelected.filter((e) => e !== eventType)
+            : [...prevSelected, eventType];
+        }
+      }
+    });
+  };
+
 
   return (
     <div className="App">
@@ -34,41 +76,40 @@ function App() {
                 </div>
       </div>
       <div className = "wrapper">
-      <div className = "store-type">
-        <div className="store-type-icon">
-            <img src={allIcon} alt="all" className="store-type-img" />
-            <span>전체</span>
+        <div className="store-type">
+          {["ALL", "CU", "GS25", "EMART24"].map((store) => (
+            <div
+              key={store}
+              className={`store-type-icon ${selected.includes(store) ? 'selected' : ''}`}
+              onClick={() => handleSelect(store)}
+              style={{ position: 'relative' }}
+            >
+              <img
+                src={
+                  store === "ALL" ? allIcon :
+                  store === "CU" ? cuIcon :
+                  store === "GS25" ? gs25Icon : emart24Icon
+                }
+                alt={store}
+                className="store-type-img"
+              />
+              <span>{store}</span>
+              {selected.includes(store) && store !== "ALL" && (
+                <button className="close-btn" onClick={(e) => handleDeselect(e, store)}>X</button>
+              )}
+            </div>
+          ))}
         </div>
-        <div className="store-type-icon">
-            <img src={cuIcon} alt="cu" className="store-type-img" />
-            <span>CU</span>
-        </div>
-        <div className="store-type-icon">
-            <img src={gs25Icon} alt="gs25" className="store-type-img" />
-            <span>GS25</span>
-        </div>
-        <div className="store-type-icon">
-            <img src={emart24Icon} alt="emart24" className="store-type-img" />
-            <span>EMART24</span>
-        </div>
-      </div>
-
-      <div className = "event-type">
-        <div className = "event-type-tab">
-          <span>전체</span>
-        </div>
-        <div className = "event-type-tab">
-          <span>1+1</span>
-        </div>
-        <div className = "event-type-tab">
-          <span>2+1</span>
-        </div>
-        <div className = "event-type-tab">
-          <span>세일</span>
-        </div>
-        <div className = "event-type-tab">
-          <span>덤증정</span>
-        </div>
+      <div className="event-type">
+        {['전체', '1+1', '2+1', '세일', '덤증정'].map((eventType) => (
+          <div
+            key={eventType}
+            className={`event-type-tab ${eventSelected.includes(eventType) ? 'selected' : ''}`}
+            onClick={() => handleEventSelect(eventType)}
+          >
+            <span>{eventType}</span>
+          </div>
+        ))}
       </div>
     </div>
 
