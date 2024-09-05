@@ -42,7 +42,7 @@ const Product = ({ product }) => {
     );
 };
    
-const Home = () => {
+const Home = ({keyword, selectedStore, selectedEvent}) => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -55,19 +55,41 @@ const Home = () => {
     
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(`${URL_VARIABLE}products?page=${page}&size=10`);
+            const response = await axios.post(
+                `${URL_VARIABLE}products?page=${page}&size=10`,
+                {
+                    keyword: keyword,
+                    convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+                    eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+    
             const data = Array.isArray(response.data.content) ? response.data.content : [];
+            console.log(data);
             setProducts(prevProducts => [...prevProducts, ...data]);
-            setTotalPage(response.data.totalPages); 
+            setTotalPage(response.data.totalPages);
         } catch (error) {
             console.error(error);
         }
     };
     
     useEffect(() => {
-        fetchProducts();
+        setProducts([]);
+        setPage(0);
+        fetchProducts(0);
+    }, [keyword, selectedStore, selectedEvent]);
+
+    useEffect(() => {
+        if (page > 0) {
+            fetchProducts(page);
+        }
     }, [page]);
-    
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
