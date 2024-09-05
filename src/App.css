@@ -73,6 +73,24 @@ html, body, #root {
   object-fit: contain; 
   border-radius: 50%; 
 }
+
+.dropdown-menu {
+  margin-top: 30px;
+  list-style: none;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+}
+
+.dropdown-menu li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
 .under-bar {
   max-width: 480px;
   width: 100%; /* 너비를 100%로 설정하여 화면의 너비에 맞추되, max-width로 최대 크기 제한 */
@@ -117,7 +135,7 @@ html, body, #root {
 }
 
 .store-type-icon {
-  width: 38px; 
+  width: 37px; 
   height: 50px;
   display: flex;
   align-items: center;
@@ -142,13 +160,16 @@ html, body, #root {
 }
 
 .store-type-icon.selected .store-type-img {
-  border: 1px solid rgba(0, 162, 255, 0.685); 
+  border: 2px solid rgba(0, 162, 255, 0.685); 
   border-radius: 50%; 
 }
 
 .store-type-icon.selected span {
+  font-weight: 650;
   color: rgba(0, 162, 255, 0.685); 
 }
+
+
 
 .store-type-icon .close-btn {
   position: absolute;
