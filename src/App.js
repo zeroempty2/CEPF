@@ -18,19 +18,39 @@ function App() {
   const searchIcon2 = '/search2.png'
   const [selected, setSelected] = useState(["ALL"]);
   const [eventSelected, setEventSelected] = useState(['전체']);
+  const [keyword,setKeyword] = useState(null);
+  const [inputValue, setInputValue] = useState('');
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    setKeyword(inputValue);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+  
   const handleSelect = (store) => {
     if (store === "ALL") {
       setSelected(["ALL"]);
+      setKeyword(inputValue);
     } else {
       if (selected.includes("ALL")) {
         setSelected([]);
+        setKeyword(inputValue);
       }
 
       setSelected((prevSelected) => {
         if (prevSelected.includes(store)) {
+          setKeyword(inputValue);
           return prevSelected.filter((s) => s !== store); 
         } else {
+          setKeyword(inputValue);
           return [...prevSelected, store]; 
         }
       });
@@ -40,16 +60,20 @@ function App() {
   const handleDeselect = (event, store) => {
     event.stopPropagation(); 
     setSelected((prevSelected) => prevSelected.filter((s) => s !== store));
+    setKeyword(inputValue);
   };
 
   const handleEventSelect = (eventType) => {
     setEventSelected((prevSelected) => {
       if (eventType === '전체') {
+        setKeyword(inputValue);
         return ['전체'];
       } else {
         if (prevSelected.includes('전체')) {
+          setKeyword(inputValue);
           return [eventType];
         } else {
+          setKeyword(inputValue);
           return prevSelected.includes(eventType)
             ? prevSelected.filter((e) => e !== eventType)
             : [...prevSelected, eventType];
@@ -65,15 +89,17 @@ function App() {
         <div className="search-bar-logo">
           <span>편</span>
         </div>
-        
-                <input
-                  className='search-bar-text-input'
-                  type="text"
-                  placeholder="검색어를 입력하세요"
-                />
-                <div className="submit-search">
-                  <img src={searchIcon2} alt="submit-search" className="submit-search-img" />
-                </div>
+          <input
+          className='search-bar-text-input'
+          type="text"
+          placeholder="검색어를 입력하세요"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          />
+        <div className="submit-search" onClick={handleSearch}>
+          <img src={searchIcon2} alt="submit-search" className="submit-search-img" />
+        </div>
       </div>
       <div className = "wrapper">
         <div className="store-type">
@@ -128,7 +154,7 @@ function App() {
       </div>
   </div>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} />} />
     </Routes>
     </div>
   );
