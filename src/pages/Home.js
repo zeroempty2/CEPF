@@ -11,15 +11,33 @@ const Product = ({ product }) => {
         }
         return price;
     };
+    const formatEventClassification = (eventClassification) => {
+        if (eventClassification.includes('1 + 1')){
+            return '1+1'
+        }
+        else if (eventClassification.includes('2 + 1')){
+            return '2+1'
+        }
+        console.log(eventClassification);
+        return eventClassification;
+       
+    }
     const cuImg = '/CU.png';
     const emartImg = '/Emart24.png';
     const gs25Img = '/GS25.png';
 
     const formattedPrice = formatPrice(product.productPrice);
-
+    const formattedEventClassification = formatEventClassification(product.eventClassification);
     return (
         <li className="item">
-            <div className="badge-left"><span className='event-classification'>{product.eventClassification}</span></div>
+            <div className={`badge-left ${formattedEventClassification.includes('1+1') ? 'one' : ''} 
+                    ${formattedEventClassification.includes('2+1') ? 'two' : ''} 
+                    ${formattedEventClassification.includes('세일') ? 'sale' : ''} 
+                    ${formattedEventClassification.includes('덤증정') ? 'dum' : ''}`}>
+                <span className='event-classification'>
+                    {formattedEventClassification}
+                </span>
+            </div>
             <div className="badge-right">
                 {product.convenienceClassification === 'CU' && (
                     <img src={cuImg} alt="CU" className="convenience-img" />
@@ -27,11 +45,11 @@ const Product = ({ product }) => {
                 {product.convenienceClassification === 'GS25' && (
                     <img src={gs25Img} alt="GS25" className="convenience-img" />
                 )}
-                {product.convenienceClassification === 'Emart24' && (
+                {product.convenienceClassification === 'EMART24' && (
                     <img src={emartImg} alt="Emart24" className="convenience-img" />
                 )}
             </div>
-            <div className='product-img'> 
+            <div className='product-img'>   
                 <img src={product.productImg} alt="" />
             </div>
             <div className='product-name'>{product.productName}</div>
@@ -68,7 +86,6 @@ const Home = ({keyword, selectedStore, selectedEvent}) => {
                     }
                 }
             );
-    
             const data = Array.isArray(response.data.content) ? response.data.content : [];
             console.log(data);
             setProducts(prevProducts => [...prevProducts, ...data]);
