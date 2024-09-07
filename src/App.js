@@ -1,6 +1,8 @@
-import React,{useState} from "react";
-import {Routes,Route,Link} from "react-router-dom";
+import React,{useState,useRef} from "react";
+import {Routes,Route,Link,useNavigate,useLocation} from "react-router-dom";
 import Home from "./pages/Home";
+import SignUp from "./pages/SignUp"
+import Login from "./pages/Login"
 import './App.css';
 
 
@@ -16,11 +18,26 @@ function App() {
   const emart24Icon = '/Emart24.png'
   const gs25Icon = '/GS25.png'  
   const searchIcon2 = '/search2.png'
+
   const [selected, setSelected] = useState(["ALL"]);
   const [eventSelected, setEventSelected] = useState(['전체']);
   const [keyword,setKeyword] = useState(null);
   const [inputValue, setInputValue] = useState('');
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const inputRef = useRef(null); 
 
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus(); 
+    }
+  };
+  const handleClickHome = () =>{
+    setSelected(["ALL"]);
+    setEventSelected(["전체"]);
+    navigate("/");
+  }
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -84,77 +101,88 @@ function App() {
 
 
   return (
-    <div className="App">
-      <div className = "search-bar">
-        <div className="search-bar-logo">
-          <span>편</span>
-        </div>
-          <input
-          className='search-bar-text-input'
-          type="text"
-          placeholder="검색어를 입력하세요"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          />
-        <div className="submit-search" onClick={handleSearch}>
-          <img src={searchIcon2} alt="submit-search" className="submit-search-img" />
-        </div>
-      </div>
-      <div className = "wrapper">
-        <div className="store-type">
-          {["ALL", "CU", "GS25", "EMART24"].map((store) => (
-            <div
-              key={store}
-              className={`store-type-icon ${selected.includes(store) ? 'selected' : ''}`}
-              onClick={() => handleSelect(store)}
-              style={{ position: 'relative' }}
-            >
-              <img
-                src={
-                  store === "ALL" ? allIcon :
-                  store === "CU" ? cuIcon :
-                  store === "GS25" ? gs25Icon : emart24Icon
-                }
-                alt={store}
-                className="store-type-img"
-              />
-              <span>{store}</span>
-              {selected.includes(store) && store !== "ALL" && (
-                <button className="close-btn" onClick={(e) => handleDeselect(e, store)}>X</button>
-              )}
+    <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' ? 'no-style' : ''}`}>
+           {location.pathname === '/' && (
+        <>
+          <div className="search-bar">
+            <div className="search-bar-logo" onClick={handleClickHome}>
+              <span>편</span>
             </div>
-          ))}
-        </div>
-      <div className="event-type">
-        {['전체', '1+1', '2+1', '세일', '덤증정'].map((eventType) => (
-          <div
-            key={eventType}
-            className={`event-type-tab ${eventSelected.includes(eventType) ? 'selected' : ''}`}
-            onClick={() => handleEventSelect(eventType)}
-          >
-            <span>{eventType}</span>
+            <input
+              className='search-bar-text-input'
+              type="text"
+              placeholder="검색어를 입력하세요"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              ref={inputRef}
+            />
+            <div className="submit-search" onClick={handleSearch}>
+              <img src={searchIcon2} alt="submit-search" className="submit-search-img" />
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
 
-    <div className="under-bar">
-      <div className="under-bar-icon">
-        <img src={homeIcon} alt="home" className="under-bar-img" />
-      </div>
-      <div className="under-bar-icon">
-      <img src={favoriteIcon} alt="favorite" className="under-bar-img" />
-      </div>
-      <div className="under-bar-icon">
-      <img src={searchIcon} alt="search" className="under-bar-img" />
-      </div>
-      <div className="under-bar-icon">
-      <img src={userIcon} alt="user" className="under-bar-img" />
-      </div>
-  </div>
+          <div className="wrapper">
+            <div className="store-type">
+              {["ALL", "CU", "GS25", "EMART24"].map((store) => (
+                <div
+                  key={store}
+                  className={`store-type-icon ${selected.includes(store) ? 'selected' : ''}`}
+                  onClick={() => handleSelect(store)}
+                  style={{ position: 'relative' }}
+                >
+                  <img
+                    src={
+                      store === "ALL" ? allIcon :
+                      store === "CU" ? cuIcon :
+                      store === "GS25" ? gs25Icon : emart24Icon
+                    }
+                    alt={store}
+                    className="store-type-img"
+                  />
+                  <span>{store}</span>
+                  {selected.includes(store) && store !== "ALL" && (
+                    <button className="close-btn" onClick={(e) => handleDeselect(e, store)}>X</button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="event-type">
+              {['전체', '1+1', '2+1', '세일', '덤증정'].map((eventType) => (
+                <div
+                  key={eventType}
+                  className={`event-type-tab ${eventSelected.includes(eventType) ? 'selected' : ''}`}
+                  onClick={() => handleEventSelect(eventType)}
+                >
+                  <span>{eventType}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {location.pathname === '/' && (
+        <div className="under-bar">
+          <div className="under-bar-icon" onClick={handleClickHome}> 
+            <img src={homeIcon} alt="home" className="under-bar-img" />
+          </div>
+          <div className="under-bar-icon">
+            <img src={favoriteIcon} alt="favorite" className="under-bar-img" />
+          </div>
+          <div className="under-bar-icon" onClick={focusInput}>
+            <img src={searchIcon} alt="search" className="under-bar-img" />
+          </div>
+          <div className="under-bar-icon" onClick={() => navigate("/login")}>
+            <img src={userIcon} alt="user" className="under-bar-img" />
+          </div>
+        </div>
+      )}
     <Routes>
       <Route path="/" element={<Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} />} />
+      <Route path="/signup" element={<SignUp />}/>
+      <Route path="/login" element={<Login />}/>
     </Routes>
     </div>
   );

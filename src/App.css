@@ -13,6 +13,13 @@ html, body, #root {
   min-height: 100%;
   box-shadow: 0 0 20px #0000000d;
 }
+.no-style {
+  background-color: initial;
+  box-shadow: none;
+  background-color: #fff;
+  width: auto;
+  overflow: hidden; /* 스크롤바 제거 */
+}
 
 .search-bar{
   margin: 0 auto;
@@ -73,24 +80,6 @@ html, body, #root {
   object-fit: contain; 
   border-radius: 50%; 
 }
-
-.dropdown-menu {
-  margin-top: 30px;
-  list-style: none;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  width: 100%;
-}
-
-.dropdown-menu li {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-
-.dropdown-menu li:hover {
-  background-color: #f0f0f0;
-}
-
 .under-bar {
   max-width: 480px;
   width: 100%; /* 너비를 100%로 설정하여 화면의 너비에 맞추되, max-width로 최대 크기 제한 */
@@ -168,8 +157,6 @@ html, body, #root {
   font-weight: 650;
   color: rgba(0, 162, 255, 0.685); 
 }
-
-
 
 .store-type-icon .close-btn {
   position: absolute;
