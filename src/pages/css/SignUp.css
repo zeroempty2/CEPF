@@ -1,0 +1,169 @@
+.signup-box{
+    margin: 0 auto;
+    height: 500px;
+    margin-top: 200px;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+}
+.signup-bar{
+    margin-top: 20px;
+    margin-bottom:30px;
+    max-width: 480px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    background: #fff;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    user-select: none; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-info-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.dup-check-true{
+    margin-top: -25px;
+    color: green;
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-left: 65px;
+}
+.pattern-check-false{
+    margin-top: -25px;
+    color: red;
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-left: 65px;
+}
+.signup-id{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+.id-check-button {
+    background-color: #414141;
+    border: none; 
+    width: 70px;
+    height: 35px;
+    border-radius: 10px;
+    color: white;
+    right: 22px;
+    top: 298px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 14px;
+    position: absolute;
+  }
+
+  .id-check-button:hover {
+    background-color: #b0b0b0; 
+    color: black;
+  }
+
+
+.signup-password{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+
+.signup-password-check{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+
+.signup-email{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+
+.signup-text-input {
+    width: 200px; 
+    height: 12px; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease; /* 애니메이션 효과 */
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+  }
+  
+  .signup-text-input:focus {
+    outline: none;
+    border-color: blue; /* 포커스 되었을 때의 테두리 색 */
+  }
+
+  .signup-button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+  .signup-button {
+    background-color: #414141;
+    border: none; 
+    width: 100px;
+    height: 40px;
+    border-radius: 30px;
+    color: white;
+    margin-right: 10px;
+    margin-left: 20px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    user-select: none;
+  }
+
+  .signup-button:hover {
+    background-color: #b0b0b0; 
+    color: black;
+  }
+
