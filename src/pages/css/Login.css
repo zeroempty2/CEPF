@@ -1,0 +1,127 @@
+.login-box{
+    margin: 0 auto;
+    height: 350px;
+    margin-top: 200px;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.login-bar{
+    margin-top: 20px;
+    margin-bottom:30px;
+    max-width: 480px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    background: #fff;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    user-select: none; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.login-info-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.login-id{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+
+.login-password{
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left : -70px;
+    margin-right: 8px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    user-select: none;
+}
+
+.login-text-input {
+    width: 200px; 
+    height: 12px; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease; /* 애니메이션 효과 */
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+  }
+  
+  .login-text-input:focus {
+    outline: none;
+    border-color: blue; /* 포커스 되었을 때의 테두리 색 */
+  }
+  .login-button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+  .login-button {
+    background-color: #414141;
+    border: none; 
+    width: 100px;
+    height: 40px;
+    border-radius: 30px;
+    color: white;
+    margin-right: 10px;
+    margin-left: 20px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    user-select: none;
+  }
+
+  .login-button:hover {
+    background-color: #b0b0b0; 
+    color: black;
+  }
+
+  .signup-text {
+    margin-top: 20px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  .signup-text:hover {
+    color: rgba(0, 0, 0, 0.329);
+    text-decoration: underline;
+    font-weight: 600;
+  }
