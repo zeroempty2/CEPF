@@ -3,6 +3,7 @@ import {Routes,Route,Link,useNavigate,useLocation} from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
+import UserInfo from "./pages/UserInfo"
 import './App.css';
 
 
@@ -99,9 +100,13 @@ function App() {
     });
   };
 
+  const navigateIfLogin = () => {
+    if(localStorage.getItem('jwtToken')) navigate("/userInfo");
+    else navigate("/login")
+  }
 
   return (
-    <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' ? 'no-style' : ''}`}>
+    <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/userInfo' ? 'no-style' : ''}`}>
            {location.pathname === '/' && (
         <>
           <div className="search-bar">
@@ -174,7 +179,7 @@ function App() {
           <div className="under-bar-icon" onClick={focusInput}>
             <img src={searchIcon} alt="search" className="under-bar-img" />
           </div>
-          <div className="under-bar-icon" onClick={() => navigate("/login")}>
+          <div className="under-bar-icon" onClick={navigateIfLogin}>
             <img src={userIcon} alt="user" className="under-bar-img" />
           </div>
         </div>
@@ -183,6 +188,7 @@ function App() {
       <Route path="/" element={<Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} />} />
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/login" element={<Login />}/>
+      <Route path="/userInfo" element={<UserInfo />}/>
     </Routes>
     </div>
   );
