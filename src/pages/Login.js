@@ -20,6 +20,24 @@ const Login = () => {
         });
       };
 
+      const handleLoginClcik = async() => {
+        try {
+            const response = await axios.post( URL_VARIABLE + 'users/login', userData);
+            if(response.data.statusCode === 200){
+              const token = response.headers['authorization'];
+              localStorage.setItem('jwtToken', token);
+              alert("로그인 성공");
+              navigate("/");
+            }else{
+              alert("아이디와 비밀번호를 다시 확인 해 주세요")
+            }
+          }
+           catch (error) {
+            alert("아이디와 비밀번호를 다시 확인해 주세요");
+            
+          }
+      };
+
     return(
         <div>
             <div className='login-box'>
@@ -60,7 +78,7 @@ const Login = () => {
                 </div>
                 <div className='login-button-container'>
                     <button className='login-button' onClick={() => navigate(-1)}>뒤로가기</button>
-                    <button className='login-button' onClick={() => navigate("/login")}>로그인</button>
+                    <button className='login-button' onClick={handleLoginClcik}>로그인</button>
                 </div>
                 <div className='signup-text' onClick={() => navigate("/signup")}>회원가입</div>
             </div>
