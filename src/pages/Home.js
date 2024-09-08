@@ -87,7 +87,6 @@ const Home = ({keyword, selectedStore, selectedEvent}) => {
                 }
             );
             const data = Array.isArray(response.data.content) ? response.data.content : [];
-            console.log(data);
             setProducts(prevProducts => [...prevProducts, ...data]);
             setTotalPage(response.data.totalPages);
         } catch (error) {
