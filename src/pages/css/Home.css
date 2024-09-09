@@ -25,6 +25,20 @@
     position: relative; 
 }
 
+.favorite{
+    max-width: 215px;
+    width: 100%; 
+    box-sizing: border-box;
+    background-color: #ffffff; 
+    height: 295px; 
+    outline: 3px solid #fffb00; 
+    border-radius: 10px; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative; 
+}
+
 .badge-left.one{
     padding: 5px 10px; /* 좌우 여백을 설정 */
     background-color: rgba(0, 162, 255, 0.685); 
@@ -160,4 +174,35 @@
     font-size: 20px;
     font-weight: bold; 
     user-select: none; 
+}
+.add-favorite {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    right: 9px;
+    background-image: url('/public/star-gray.png'); /* 기본 이미지 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.add-favorite:hover {
+    background-image: url('/public/star-full.png'); /* hover 시 이미지 */
+}
+
+.delete-favorite {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    right: 9px;
+    background-image: url('/public/star-full.png'); /* 기본 이미지 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.delete-favorite:hover {
+    background-image: url('/public/star-gray.png'); /* hover 시 이미지 */
 }
