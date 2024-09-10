@@ -1,0 +1,76 @@
+.favorite-list {
+    max-width: 480px;
+    list-style: none; 
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 0; 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열로 설정 */
+    gap: 20px; /* 아이템 간의 간격 설정 */
+    padding-bottom: 60px; 
+}
+
+.favorite-non{
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -20px;
+    width: 480px;
+    margin-top: 250px;
+    user-select: none;
+}
+
+
+.tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 480px;
+    height: 45px;
+    border-bottom: 2px solid #ccc; 
+    flex-direction: row;
+  }
+  
+  .tab-content{
+    width: 173px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 15px;
+  }
+  .tab-content-active{
+    font-weight: bold;
+    border-bottom: 2px solid #000000; 
+  }
+
+  .pagination{
+    margin-top: -30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .pagination button{
+    border: none;
+    background: none;
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 15px;
+  }
+
+  .pagination button.active{
+    border: none;
+    background: none;
+    font-weight: 900;
+    text-decoration: underline;
+  }

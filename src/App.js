@@ -4,15 +4,16 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import UserInfo from "./pages/UserInfo"
+import Favorite from "./pages/Favorite";
 import './App.css';
 
 
-//검색 api추가
-//로그인, 회원관련 api추가
 function App() {
-  const homeIcon = '/home.png'
+  const homeIcon = '/home-select.png'
+  const homeEmptyIcon = '/home-non-select.png'
   const searchIcon = '/search.png'
   const favoriteIcon = '/star.png'
+  const favoriteFullIcon = '/star-black.png'
   const userIcon = '/user.png'
   const allIcon = '/All.png'
   const cuIcon = '/CU.png'
@@ -24,7 +25,6 @@ function App() {
   const [eventSelected, setEventSelected] = useState(['전체']);
   const [keyword,setKeyword] = useState(null);
   const [inputValue, setInputValue] = useState('');
-  
   const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef(null); 
@@ -37,6 +37,8 @@ function App() {
   const handleClickHome = () =>{
     setSelected(["ALL"]);
     setEventSelected(["전체"]);
+    setInputValue('');
+    setKeyword('');
     navigate("/");
   }
   const handleInputChange = (e) => {
@@ -77,26 +79,43 @@ function App() {
 
   const handleDeselect = (event, store) => {
     event.stopPropagation(); 
-    setSelected((prevSelected) => prevSelected.filter((s) => s !== store));
+    setSelected((prevSelected) => {
+      const updatedSelected = prevSelected.filter((s) => s !== store);
+  
+      if (updatedSelected.length === 0) {
+        return ["ALL"];
+      }
+  
+      return updatedSelected;
+    });
+
     setKeyword(inputValue);
   };
 
   const handleEventSelect = (eventType) => {
     setEventSelected((prevSelected) => {
+      let updatedSelected;
+  
       if (eventType === '전체') {
-        setKeyword(inputValue);
-        return ['전체'];
-      } else {
+        updatedSelected = ['전체'];
+      } 
+      else {
         if (prevSelected.includes('전체')) {
-          setKeyword(inputValue);
-          return [eventType];
-        } else {
-          setKeyword(inputValue);
-          return prevSelected.includes(eventType)
+          updatedSelected = [eventType];
+        } 
+        else {
+          updatedSelected = prevSelected.includes(eventType)
             ? prevSelected.filter((e) => e !== eventType)
             : [...prevSelected, eventType];
         }
       }
+
+      if (updatedSelected.length === 0) {
+        updatedSelected = ['전체'];
+      }
+  
+      setKeyword(inputValue);
+      return updatedSelected;
     });
   };
 
@@ -107,16 +126,17 @@ function App() {
 
   return (
     <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/userInfo' ? 'no-style' : ''}`}>
-           {location.pathname === '/' && (
+           {(location.pathname === '/' || location.pathname === '/favorite') && (
         <>
-          <div className="search-bar">
+
+            <div className="search-bar">
             <div className="search-bar-logo" onClick={handleClickHome}>
               <span>편</span>
             </div>
             <input
               className='search-bar-text-input'
               type="text"
-              placeholder="검색어를 입력하세요"
+              placeholder={location.pathname === '/' ? "검색어를 입력하세요" : "즐겨찾기에서 검색"}
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
@@ -165,6 +185,7 @@ function App() {
               ))}
             </div>
           </div>
+
         </>
       )}
 
@@ -173,7 +194,7 @@ function App() {
           <div className="under-bar-icon" onClick={handleClickHome}> 
             <img src={homeIcon} alt="home" className="under-bar-img" />
           </div>
-          <div className="under-bar-icon">
+          <div className="under-bar-icon" onClick={() => navigate("/favorite")}>
             <img src={favoriteIcon} alt="favorite" className="under-bar-img" />
           </div>
           <div className="under-bar-icon" onClick={focusInput}>
@@ -184,11 +205,28 @@ function App() {
           </div>
         </div>
       )}
+      {location.pathname === '/favorite' && (
+             <div className="under-bar">
+             <div className="under-bar-icon" onClick={handleClickHome}> 
+               <img src={homeEmptyIcon} alt="home" className="under-bar-img" />
+             </div>
+             <div className="under-bar-icon" onClick={() => navigate("/favorite")}>
+               <img src={favoriteFullIcon} alt="favorite" className="under-bar-img" />
+             </div>
+             <div className="under-bar-icon" onClick={focusInput}>
+               <img src={searchIcon} alt="search" className="under-bar-img" />
+             </div>
+             <div className="under-bar-icon" onClick={navigateIfLogin}>
+               <img src={userIcon} alt="user" className="under-bar-img" />
+             </div>
+           </div>
+      )}
     <Routes>
       <Route path="/" element={<Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} />} />
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/userInfo" element={<UserInfo />}/>
+      <Route path="/favorite" element={<Favorite />}/>
     </Routes>
     </div>
   );
