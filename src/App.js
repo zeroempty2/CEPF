@@ -124,6 +124,12 @@ function App() {
     else navigate("/login")
   }
 
+  const navigateFavorite = () => {
+    console.log(localStorage.getItem('jwtToken'));
+    if(localStorage.getItem('jwtToken')) navigate("/favorite");
+    else navigate("/login");
+  }
+
   return (
     <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/userInfo' ? 'no-style' : ''}`}>
            {(location.pathname === '/' || location.pathname === '/favorite') && (
@@ -194,7 +200,7 @@ function App() {
           <div className="under-bar-icon" onClick={handleClickHome}> 
             <img src={homeIcon} alt="home" className="under-bar-img" />
           </div>
-          <div className="under-bar-icon" onClick={() => navigate("/favorite")}>
+          <div className="under-bar-icon" onClick={navigateFavorite}>
             <img src={favoriteIcon} alt="favorite" className="under-bar-img" />
           </div>
           <div className="under-bar-icon" onClick={focusInput}>
@@ -210,7 +216,7 @@ function App() {
              <div className="under-bar-icon" onClick={handleClickHome}> 
                <img src={homeEmptyIcon} alt="home" className="under-bar-img" />
              </div>
-             <div className="under-bar-icon" onClick={() => navigate("/favorite")}>
+             <div className="under-bar-icon" onClick={navigateFavorite}>
                <img src={favoriteFullIcon} alt="favorite" className="under-bar-img" />
              </div>
              <div className="under-bar-icon" onClick={focusInput}>
@@ -226,7 +232,7 @@ function App() {
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/userInfo" element={<UserInfo />}/>
-      <Route path="/favorite" element={<Favorite />}/>
+      <Route path="/favorite" element={<Favorite keyword={keyword} selectedStore={selected} selectedEvent={eventSelected}/>}/>
     </Routes>
     </div>
   );

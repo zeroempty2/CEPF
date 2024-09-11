@@ -80,7 +80,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     );
   };
 
-const Favorite = ({keyword}) => {
+const Favorite = ({keyword,selectedStore,selectedEvent}) => {
     const [product,setProduct] = useState([]);
     const [page,setPage] = useState(0);
     const [activeTab, setActiveTab] = useState('전체');
@@ -99,19 +99,22 @@ const Favorite = ({keyword}) => {
     const fetchFavorite = async() => {
         try{
             if(localStorage.getItem('jwtToken') === null) return;
-
-            const response = await axios.get(`${URL_VARIABLE}favorite/check?page=${page}&size=4` ,{
+ 
+            const response = await axios.post(`${URL_VARIABLE}favorite/check?page=${page}&size=4`,{
+              keyword: keyword,
+              convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+              inProgress: activeTab
+            } ,{
                 headers: {
                   Authorization: `${localStorage.getItem('jwtToken')}`
                 }
               });
             setProduct(response.data.content);
             setTotalPage(response.data.totalPages);
-            console.log(response);
         }   
         catch(error){
             console.error(error);
-            localStorage.removeItem('jwtToken');
             navigate("/");
         }
     }
@@ -125,6 +128,11 @@ const Favorite = ({keyword}) => {
             fetchFavorite(page);
         }
     }, [page]);
+
+    useEffect(() => {
+      fetchFavorite();
+      setPage(0);
+  }, [keyword, selectedStore, selectedEvent,activeTab]);
 
     return (
         <>
@@ -159,7 +167,10 @@ const Favorite = ({keyword}) => {
             ))
           )}
         </div>
-        <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
+        {totalPage > 1 && (
+          <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
+        )}
+
         </>
 
       );
