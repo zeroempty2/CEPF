@@ -8,9 +8,13 @@ import { URL_VARIABLE } from "./ExportUrl";
 
 
 const Product = ({ product, isLogedIn, favoriteData }) => {
+
     const formatPrice = (price) => {
         if (price.includes('원')) {
             return price.replace('원', '');
+        }
+        else if (price.includes('가격정보 없음')){
+            setNonPrice(true);
         }
         return price;
     };
@@ -23,10 +27,11 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
     const formattedPrice = formatPrice(product.productPrice);
     const formattedEventClassification = product.eventClassification;
     const [isFavorite,setIsFavorite] = useState(false);
-
+    const [nonPrice,setNonPrice] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    
+
+
     const checkIfFav = (product, favoriteData) => {
         if(location.pathname === '/favorite'){
             setIsFavorite(true);
@@ -89,6 +94,11 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
 
     return (
         <li className={`item ${isFavorite ? 'favorite' : ''}`}>
+              {(location.pathname === '/favorite' && !product.isSale) &&(
+                    <div className="overlay">
+                    행사 중이 아닙니다
+                </div>
+              )} 
             <div className={`badge-left ${formattedEventClassification.includes('1+1') ? 'one' : ''} 
                     ${formattedEventClassification.includes('2+1') ? 'two' : ''} 
                     ${formattedEventClassification.includes('세일') ? 'sale' : ''} 
@@ -112,16 +122,23 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
                 <img src={product.productImg} alt="" />
             </div>
             <div className='product-name'>{product.productName}</div>
-            <div className='product-price'>
-                <span className="bold">{formattedPrice}</span><span>원</span>
-            </div>
+            {nonPrice &&  
+                <div className='product-price'>
+                    <span className="bold">{formattedPrice}</span>
+                </div>
+            }
+            {!nonPrice &&  
+                <div className='product-price'>
+                    <span className="bold">{formattedPrice}</span><span>원</span>
+                </div>
+            }
             {isLogedIn && !isFavorite &&
                 <div className='add-favorite' onClick={addFavorite}>
                 </div>
             }
-              {isLogedIn && isFavorite &&
-                <div className='delete-favorite' onClick={deleteFavorite}>
-                </div>
+            {isLogedIn && isFavorite &&
+            <div className='delete-favorite' onClick={deleteFavorite}>
+            </div>
             }
         
         </li>
