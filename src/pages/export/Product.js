@@ -7,7 +7,7 @@ import { URL_VARIABLE } from "./ExportUrl";
 
 
 
-const Product = ({ product, isLogedIn, favoriteData }) => {
+const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePage}) => {
 
     const formatPrice = (price) => {
         if (price.includes('원')) {
@@ -30,11 +30,16 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
     const [nonPrice,setNonPrice] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const [isDum,setIsDum] = useState(false);
+    const [dumOpen,setDumOpen] = useState(false);
 
-
+    const checkIsdum = (product) => {
+        if(product.eventClassification.includes("덤")){
+            setIsDum(true);
+        }
+    }
     const checkIfFav = (product, favoriteData) => {
-        if(location.pathname === '/favorite'){
-            setIsFavorite(true);
+        if(isFavoritePage){
             return;
         }
         const favoriteInfo = favoriteData.get(product.productName);
@@ -78,31 +83,38 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
         }
     }
 
-    const deleteFavorite = () =>{
-        try{
-            requestFavorite();
+    const deleteFavorite = async () => {
+        try {
+            await requestFavorite();
             setIsFavorite(false);
-        }
-        catch (error){
+            if(isFavoritePage){
+                fetchProducts(); 
+            }
+        } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleDumButton = () =>{
+        dumOpen ? setDumOpen(false) : setDumOpen(true);
     }
 
     useEffect(() => {
+        checkIsdum(product);
         checkIfFav(product,favoriteData);
     },[]);
 
     return (
-        <li className={`item ${isFavorite ? 'favorite' : ''}`}>
+        <li className={`item ${(isFavorite || isFavoritePage)? 'favorite' : ''}`}>
               {(location.pathname === '/favorite' && !product.isSale) &&(
                     <div className="overlay">
                     행사 중이 아닙니다
                 </div>
               )} 
-            <div className={`badge-left ${formattedEventClassification.includes('1+1') ? 'one' : ''} 
-                    ${formattedEventClassification.includes('2+1') ? 'two' : ''} 
-                    ${formattedEventClassification.includes('세일') ? 'sale' : ''} 
-                    ${formattedEventClassification.includes('덤증정') ? 'dum' : ''}`}>
+
+              {!dumOpen && (
+                <>
+            <div className={`badge-left ${formattedEventClassification.includes('1+1') ? 'one' : ''}${formattedEventClassification.includes('2+1') ? 'two' : ''}${formattedEventClassification.includes('세일') ? 'sale' : ''}${formattedEventClassification.includes('덤증정') ? 'dum' : ''}`}>
                 <span className='event-classification'>
                     {formattedEventClassification}
                 </span>
@@ -132,11 +144,36 @@ const Product = ({ product, isLogedIn, favoriteData }) => {
                     <span className="bold">{formattedPrice}</span><span>원</span>
                 </div>
             }
-            {isLogedIn && !isFavorite &&
+            {isDum && 
+                <div className = 'show-dum' onClick={handleDumButton}>
+                    <span>
+                    덤
+                    </span>
+                </div>
+            }
+                </>
+              )}
+            {dumOpen && (
+                <>
+                <div className='product-img'>   
+                    {product.dumImg !== "" ? <img src={product.dumImg} alt="" /> : <span>이미지가 없습니다.</span>}
+                </div>
+                {product.dumName !== "" && (
+                       <div className='product-name'>{product.dumName }</div>
+                )
+                }
+                <div className = 'close-dum' onClick={handleDumButton}>
+                    <span>
+                    덤
+                    </span>
+                </div>
+                </>
+            )}
+            {((isLogedIn && !isFavorite) || isFavoritePage) &&
                 <div className='add-favorite' onClick={addFavorite}>
                 </div>
             }
-            {isLogedIn && isFavorite &&
+            {((isLogedIn && isFavorite) || isFavoritePage)&&
             <div className='delete-favorite' onClick={deleteFavorite}>
             </div>
             }

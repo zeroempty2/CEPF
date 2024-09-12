@@ -127,8 +127,14 @@
     align-items: center;
     overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 설정 */
     margin-top:12px;
+    justify-content: center;
 }
-
+.product-img span{
+    
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+}
 .product-img img {
     width: 100%;       /* 부모 div의 너비에 맞춤 */
     height: 100%;      /* 부모 div의 높이에 맞춤 */
@@ -226,4 +232,52 @@
     border-radius: 10px;
     z-index: 2; 
     pointer-events: none; /* 오버레이가 클릭 이벤트를 차단하지 않음 */
+}
+
+.show-dum{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 9px;
+    right: 170px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:rgba(255, 217, 0, 0.911);
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    user-select: none;
+    color: white;
+}
+
+.show-dum:hover{
+    border : 1px solid grey;
+    background-color:white;
+    color: black;
+}
+
+.close-dum{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 9px;
+    right: 170px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border : 1px solid grey;
+    background-color:white;
+    color: black;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    user-select: none;
+}
+
+.close-dum:hover{
+    background-color:rgba(255, 217, 0, 0.911);
+    color: white;
 }
