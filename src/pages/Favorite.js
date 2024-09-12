@@ -124,10 +124,9 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
     },[])
 
     useEffect(() => {
-        if (page > 0) {
-            fetchFavorite(page);
-        }
+        fetchFavorite(page);
     }, [page]);
+
 
     useEffect(() => {
       fetchFavorite();
@@ -163,11 +162,11 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
             <div className="favorite-non">즐겨찾기된 상품이 없습니다.</div>
           ) : (
             product.map((item) => (
-              <Product key={item.productId} product={item} isLogedIn={true} favoriteData={{}} />
+              <Product key={item.productId} product={item} isLogedIn={true} favoriteData={{}} fetchProducts={fetchFavorite} isFavoritePage={true}/>
             ))
           )}
         </div>
-        {totalPage > 1 && (
+        {product.length !== 0 && (
           <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
         )}
 
