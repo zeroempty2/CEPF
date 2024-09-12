@@ -1,0 +1,25 @@
+.update{
+    width: 480px;
+    min-height: 100%;
+    padding-top: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+.update-word{
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    user-select: none;
+    margin-bottom: 10px;
+}
+.update-time{
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    user-select: none;
+    margin-bottom: 10px;
+}

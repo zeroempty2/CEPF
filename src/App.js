@@ -5,6 +5,8 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import UserInfo from "./pages/UserInfo"
 import Favorite from "./pages/Favorite";
+import Update from "./pages/Update"
+import RouteControll from './pages/export/RouteControll';
 import './App.css';
 
 
@@ -125,7 +127,6 @@ function App() {
   }
 
   const navigateFavorite = () => {
-    console.log(localStorage.getItem('jwtToken'));
     if(localStorage.getItem('jwtToken')) navigate("/favorite");
     else navigate("/login");
   }
@@ -227,12 +228,13 @@ function App() {
              </div>
            </div>
       )}
-    <Routes>
-      <Route path="/" element={<Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} />} />
-      <Route path="/signup" element={<SignUp />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/userInfo" element={<UserInfo />}/>
-      <Route path="/favorite" element={<Favorite keyword={keyword} selectedStore={selected} selectedEvent={eventSelected}/>}/>
+   <Routes>
+      <Route path="/" element={<RouteControll> <Home keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} /> </RouteControll>}/>
+      <Route path="/signup"  element={<RouteControll> <SignUp /> </RouteControll>} />
+      <Route path="/login" element={<RouteControll> <Login /> </RouteControll>}/>
+      <Route path="/update" element={<Update />} />
+      <Route path="/userInfo" element={<RouteControll> <UserInfo /> </RouteControll>}/>
+      <Route path="/favorite" element={<RouteControll> <Favorite keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} /> </RouteControll>}/>
     </Routes>
     </div>
   );
