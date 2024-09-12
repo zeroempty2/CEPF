@@ -44,7 +44,7 @@ const Home = ({keyword, selectedStore, selectedEvent}) => {
             
         }   
         catch(error){
-            console.error(error);
+            alert("다시 로그인 해 주세요");
             localStorage.removeItem('jwtToken');
             navigate("/");
         }
@@ -114,7 +114,7 @@ const Home = ({keyword, selectedStore, selectedEvent}) => {
     return (
         <ul className="item-list">
           {products.map((product, index) => (
-    <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} />
+     <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} fetchProducts={{}} isFavoritePage={false}/>
 ))}
         </ul>
     );
