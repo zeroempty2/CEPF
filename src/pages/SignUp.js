@@ -98,7 +98,7 @@ const SignUp = () => {
     };
 
     const checkPasswordPattren = () => {
-        const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/;
+        const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,15}$/;
 
            if(pattern.test(userData.password)) {
             setCheckingPassword(false);
