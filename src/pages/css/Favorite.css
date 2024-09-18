@@ -57,6 +57,23 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    max-width: 480px;
+  }
+  .pagination-button{
+    position: absolute;
+    bottom: 64px;
+    left: 190px;
+  }
+  .left-button{
+    position: absolute;
+    bottom: 64px;
+    left: 110px;
+  }
+
+  .right-button{
+    position: absolute;
+    bottom: 64px;
+    right: 105px;
   }
 
   .pagination button{

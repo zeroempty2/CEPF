@@ -12,41 +12,45 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const handlePageClick = (pageNum) => {
       onPageChange(pageNum);
     };
-  
-    const handleNextClick = () => {
-        if(pageRange[1] + 5 > totalPages - 1){
-        setPageRange([pageRange[0] + 5, totalPages - 1]);
-        return;
-        }
-      if (pageRange[1] < totalPages - 1) {
-        setPageRange([pageRange[0] + 5, pageRange[1] + 5]);
+
+    useEffect(() => {
+      if (totalPages < 5) {
+        setPageRange([0, totalPages - 1]); 
+      } else {
+        setPageRange([0, 4]); 
       }
+    }, [totalPages]); 
+
+    const handleNextClick = () => {
+      console.log(pageRange);
+      if(pageRange[1] + 5 > totalPages - 1){
+        setPageRange([pageRange[1] + 1, totalPages - 1]);
+
+        }else{
+          setPageRange([pageRange[0] + 5 , pageRange[0] + 9])
+        }
     };
   
     const handlePrevClick = () => {
-      if(pageRange[0] -5 < 0){
+      if(5 % (pageRange[1] - 1) <= 5){
         setPageRange([0 , 4]);
         return;
         }
-      if(pageRange[1] - pageRange[0] < 4){
-        setPageRange([pageRange[1] - 9, pageRange[1] - 5]);
-        return;
-      }
-      if (pageRange[0] > 0) {
-        setPageRange([pageRange[0] - 5, pageRange[1] - 5]);
+      if((5 % (pageRange[1] - 1) === 5)){
+        setPageRange([pageRange[1] - 5, pageRange[1] - 1]);
       }
     };
+
     const handlefirstClick = () => {
         setPageRange([0,4]);
     }
 
     const handleEndClick = () => {
-        setPageRange([totalPages-5,totalPages-1]);
+        setPageRange([totalPages - (totalPages % 5), totalPages - 1]);
     }
   
     const renderPageNumbers = () => {
       const pages = [];
-
       for (let i = pageRange[0]; i <= pageRange[1]; i++) {
         pages.push(
           <button
@@ -63,18 +67,24 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   
     return (
       <div className="pagination">
+      
         {pageRange[0] > 0 && (
+            <div className="left-button">
           <button onClick={handlefirstClick}>{'<<'}</button>
-        )}
-        {pageRange[0] > 0 && (
           <button onClick={handlePrevClick}>{'<'}</button>
-        )}
-        {renderPageNumbers()}
+          </div>
+        )}    
+
+        <div className= "pagination-button">
+          {renderPageNumbers()}
+        </div>
+       
+
         {pageRange[1] < totalPages - 1 && (
-          <button onClick={handleNextClick}>{'>'}</button>
-        )}
-         {pageRange[1] < totalPages - 1 && (
-          <button onClick={handleEndClick}>{'>>'}</button>
+          <div className="right-button">
+            <button onClick={handleNextClick}>{'>'}</button>
+            <button onClick={handleEndClick}>{'>>'}</button>
+          </div>
         )}
       </div>
     );
