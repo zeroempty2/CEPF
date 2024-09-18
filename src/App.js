@@ -17,7 +17,7 @@ function App() {
   const favoriteIcon = '/star.png'
   const favoriteFullIcon = '/star-black.png'
   const userIcon = '/user.png'
-  const allIcon = '/All.png'
+  const allIcon = '/total.PNG'
   const cuIcon = '/CU.png'
   const emart24Icon = '/Emart24.png'
   const gs25Icon = '/GS25.png'  
@@ -122,13 +122,19 @@ function App() {
   };
 
   const navigateIfLogin = () => {
-    if(localStorage.getItem('jwtToken')) navigate("/userInfo");
-    else navigate("/login")
+    if(localStorage.getItem('jwtToken')) navigate("/userInfo")
+    else navigate("/login");
   }
 
   const navigateFavorite = () => {
-    if(localStorage.getItem('jwtToken')) navigate("/favorite");
-    else navigate("/login");
+    if(localStorage.getItem('jwtToken')) {
+      setSelected(["ALL"]);
+      setEventSelected(["전체"]);
+      setInputValue('');
+      setKeyword('');
+      navigate("/favorite")
+    }
+    else {navigate("/login")}
   }
 
   return (
