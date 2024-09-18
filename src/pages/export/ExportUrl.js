@@ -3,4 +3,4 @@
 
 
 //server upload
-export const URL_VARIABLE = 'http://52.79.209.72:8080/'
+export const URL_VARIABLE = 'https://eventprodbackend.store/'
