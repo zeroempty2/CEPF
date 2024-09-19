@@ -22,7 +22,6 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     }, [totalPages]); 
 
     const handleNextClick = () => {
-      console.log(pageRange);
       if(pageRange[1] + 5 > totalPages - 1){
         setPageRange([pageRange[1] + 1, totalPages - 1]);
 
@@ -32,12 +31,11 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     };
   
     const handlePrevClick = () => {
-      if(5 % (pageRange[1] - 1) <= 5){
+      if(pageRange[0] - 4 === 1){
         setPageRange([0 , 4]);
-        return;
         }
-      if((5 % (pageRange[1] - 1) === 5)){
-        setPageRange([pageRange[1] - 5, pageRange[1] - 1]);
+      else{
+        setPageRange([pageRange[0] - 5, pageRange[0] - 1]);
       }
     };
 
@@ -67,7 +65,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   
     return (
       <div className="pagination">
-      
+
         {pageRange[0] > 0 && (
             <div className="left-button">
           <button onClick={handlefirstClick}>{'<<'}</button>
@@ -167,19 +165,20 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
             </div>
 
         </div>
-        <div className="favorite-list">
-          {product.length === 0 ? (
+        {product.length === 0 ? (
             <div className="favorite-non">즐겨찾기된 상품이 없습니다.</div>
-          ) : (
-            product.map((item) => (
-              <Product key={item.productId} product={item} isLogedIn={true} favoriteData={{}} fetchProducts={fetchFavorite} isFavoritePage={true}/>
-            ))
-          )}
-        </div>
+          ) :(<div className="favorite-list">
+          { product.map((item) => (
+             <Product key={item.productId} product={item} isLogedIn={true} favoriteData={{}} fetchProducts={fetchFavorite} isFavoritePage={true}/>
+           )) }  
+       </div>
+      )}
+ 
+        
         {product.length !== 0 && (
-          <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
-        )}
-
+                  <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
+                )}
+        
         </>
 
       );
