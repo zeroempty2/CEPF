@@ -12,7 +12,7 @@ const RouteControll = ({ children }) => {
       const startTime = new Date(currentDate);
       startTime.setHours(0, 0, 0); 
       const endTime = new Date(currentDate);
-      endTime.setHours(1, 0, 0);
+      endTime.setHours(2, 0, 0);
   
       if (currentDate >= startTime && currentDate <= endTime) {
         setIsAccessible(false); 
@@ -22,6 +22,6 @@ const RouteControll = ({ children }) => {
     }, []);
 
     return isAccessible ? children : <Navigate to="/update" />;
-};
+};  
     
     export default RouteControll;
