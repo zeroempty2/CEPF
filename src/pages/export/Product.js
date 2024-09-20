@@ -106,6 +106,13 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
 
     return (
         <li className={`item ${(isFavorite || isFavoritePage)? 'favorite' : ''}`}>
+                     {isDum && 
+                <div className = 'show-dum' onClick={handleDumButton}>
+                    <span>
+                      click!
+                    </span>
+                </div>
+            }
               {(location.pathname === '/favorite' && !product.isSale) &&(
                     <div className="overlay">
                     행사 중이 아닙니다
@@ -130,9 +137,16 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
                     <img src={emartImg} alt="Emart24" className="convenience-img" />
                 )}
             </div>
-            <div className='product-img'>   
-                <img src={product.productImg} alt="" />
-            </div>
+            {isDum && (
+                 <div className='product-img' onClick={handleDumButton}>   
+                 <img src={product.productImg} alt="" />
+             </div>
+            )}
+               {!isDum && (
+                 <div className='product-img' >   
+                 <img src={product.productImg} alt="" />
+             </div>
+            )}
             <div className='product-name'>{product.productName}</div>
             {nonPrice &&  
                 <div className='product-price'>
@@ -140,22 +154,16 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
                 </div>
             }
             {!nonPrice &&  
-                <div className='product-price'>
+                <div className='product-price'>      
                     <span className="bold">{formattedPrice}</span><span>원</span>
                 </div>
             }
-            {isDum && 
-                <div className = 'show-dum' onClick={handleDumButton}>
-                    <span>
-                    덤
-                    </span>
-                </div>
-            }
+           
                 </>
               )}
             {dumOpen && (
                 <>
-                <div className='product-img'>   
+                <div className='product-img'  onClick={handleDumButton}>   
                     {product.dumImg !== "" ? <img src={product.dumImg} alt="" /> : <span>이미지가 없습니다.</span>}
                 </div>
                 {product.dumName !== "" && (
@@ -164,7 +172,7 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
                 }
                 <div className = 'close-dum' onClick={handleDumButton}>
                     <span>
-                    덤
+           
                     </span>
                 </div>
                 </>
