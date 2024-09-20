@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import {useNavigate} from "react-router-dom";
 import './css/Home.css';
 import axios from 'axios';
+import throttle from 'lodash/throttle'; 
 
 import Product from './export/Product';
 import { URL_VARIABLE } from "./export/ExportUrl";
    
     const Home = ({keyword, selectedStore, selectedEvent}) => {
         const navigate = useNavigate();
-
+        const loaderRef = useRef(null); 
+        
         const [products, setProducts] = useState([]);
         const [page, setPage] = useState(0);
         const [totalPage, setTotalPage] = useState(0);
@@ -98,12 +100,16 @@ import { URL_VARIABLE } from "./export/ExportUrl";
         }, [page]);
 
         useEffect(() => {
-            const handleScroll = () => {
-                if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
-                    loadMoreData();
+            const handleScroll = throttle(() => {
+                if (loaderRef.current) {
+                    const loaderPosition = loaderRef.current.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    if (loaderPosition <= windowHeight) {
+                        loadMoreData();
+                    }
                 }
-            };
-        
+            }, 500); // 스크롤 페이지 로딩시 500ms 텀
+    
             window.addEventListener('scroll', handleScroll, { passive: true });
             return () => window.removeEventListener('scroll', handleScroll);
         }, [page, totalPage]);
@@ -117,6 +123,7 @@ import { URL_VARIABLE } from "./export/ExportUrl";
           {products.map((product, index) => (
      <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} fetchProducts={{}} isFavoritePage={false}/>
 ))}
+ <div className='loader' ref={loaderRef}></div>
         </ul>
     );
 };
