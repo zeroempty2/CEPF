@@ -44,7 +44,12 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     }
 
     const handleEndClick = () => {
+      if(totalPages - (totalPages % 5) - 1 ===  totalPages - 1){
+        setPageRange([totalPages - 5, totalPages - 1]);
+      }
+       else{
         setPageRange([totalPages - (totalPages % 5), totalPages - 1]);
+       } 
     }
   
     const renderPageNumbers = () => {
@@ -69,6 +74,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         {pageRange[0] > 0 && (
             <div className="left-button">
           <button onClick={handlefirstClick}>{'<<'}</button>
+          <button >{''}</button>
           <button onClick={handlePrevClick}>{'<'}</button>
           </div>
         )}    
@@ -81,6 +87,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         {pageRange[1] < totalPages - 1 && (
           <div className="right-button">
             <button onClick={handleNextClick}>{'>'}</button>
+            <button >{''}</button>
             <button onClick={handleEndClick}>{'>>'}</button>
           </div>
         )}
