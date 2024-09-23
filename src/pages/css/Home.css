@@ -9,6 +9,7 @@
     grid-template-columns: repeat(2, 1fr); /* 2열로 설정 */
     gap: 10px; /* 아이템 간의 간격 설정 */
     padding-bottom: 60px; 
+    position: relative;
 }
 
 .item {
@@ -270,9 +271,33 @@
     background-color:rgba(255, 217, 0, 0.911);
     color: white;
 }
+.button_group {
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* 고정 위치 설정 */
+    width: 40px;
+    height: 90px;
+    bottom: 90px;
+    right: 710px;
+    z-index: 1;
+    border: none; 
+    justify-content: space-between;
+}
+.move_start, .move_end{
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #00000041;
+}
+
+.move_start:hover, .move_end:hover {
+    opacity: 1; 
+}
 
 .loader{
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 @media (min-width: 481px) and (max-width: 1440px) {
@@ -309,6 +334,19 @@
     right: 9px;
     width: 30px;
     }   
+    
+    .button_group {
+        display: flex;
+        flex-direction: column;
+        position: fixed; /* 고정 위치 설정 */
+        width: 40px;
+        height: 90px;
+        bottom: 90px;
+        right: 10px;
+        z-index: 1;
+        border: none; 
+        justify-content: space-between;
+    }
 }
 
 @media (max-width: 480px) {
@@ -346,4 +384,16 @@
     width: 30px;
     }   
 
+    .button_group {
+        display: flex;
+        flex-direction: column;
+        position: fixed; /* 고정 위치 설정 */
+        width: 40px;
+        height: 90px;
+        bottom: 90px;
+        right: 10px;
+        z-index: 1;
+        border: none; 
+        justify-content: space-between;
+    }
 }

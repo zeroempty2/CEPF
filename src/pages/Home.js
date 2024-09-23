@@ -26,7 +26,23 @@ import { URL_VARIABLE } from "./export/ExportUrl";
                 setPage(prevPage => prevPage + 1);
             }
         };
-    
+        const handleMoveStart = () => {
+            window.scrollTo({
+              top: 0, 
+              behavior: 'smooth' 
+            });
+          };
+        
+      
+          const handleMoveEnd = () => {
+            const scrollHeight = document.body.scrollHeight;
+            const windowHeight = window.innerHeight;
+            window.scrollTo({
+              top: scrollHeight - windowHeight - 100, // 최하단보다  위로 이동
+              behavior: 'smooth' 
+            });
+          };
+
         const fetchFavorite = async () => {
             try {
                 if (localStorage.getItem('jwtToken') === null) return;
@@ -104,16 +120,17 @@ import { URL_VARIABLE } from "./export/ExportUrl";
                 if (loaderRef.current) {
                     const loaderPosition = loaderRef.current.getBoundingClientRect().top;
                     const windowHeight = window.innerHeight;
-                    if (loaderPosition <= windowHeight) {
+                    if (loaderPosition <= windowHeight && page < totalPage - 1) {
                         loadMoreData();
                     }
                 }
             }, 500); // 스크롤 페이지 로딩시 500ms 텀
-    
+        
             window.addEventListener('scroll', handleScroll, { passive: true });
+        
             return () => window.removeEventListener('scroll', handleScroll);
-        }, [page, totalPage]);
-
+        }, [page, totalPage]); 
+        
         if (isLogedIn && isLoadingFavorite) {
             return <div>Loading...</div>; 
         }
@@ -123,6 +140,10 @@ import { URL_VARIABLE } from "./export/ExportUrl";
           {products.map((product, index) => (
      <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} fetchProducts={{}} isFavoritePage={false}/>
 ))}
+        <div className="button_group">
+            <button className="move_start" onClick={handleMoveStart}>▲</button>
+            <button className="move_end" onClick={handleMoveEnd}>▼</button>
+        </div>
  <div className='loader' ref={loaderRef}></div>
         </ul>
     );
