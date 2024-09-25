@@ -1,5 +1,7 @@
 import React,{useState,useRef} from "react";
 import {Routes,Route,Link,useNavigate,useLocation} from "react-router-dom";
+import Admin from './pages/Admin';
+import AdminLogin from './pages/AdminLogin';
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
@@ -7,6 +9,7 @@ import UserInfo from "./pages/UserInfo"
 import Favorite from "./pages/Favorite";
 import Update from "./pages/Update"
 import RouteControll from './pages/export/RouteControll';
+
 import './App.css';
 
 
@@ -239,6 +242,8 @@ function App() {
       <Route path="/signup"  element={<RouteControll> <SignUp /> </RouteControll>} />
       <Route path="/login" element={<RouteControll> <Login /> </RouteControll>}/>
       <Route path="/update" element={<Update />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/adminLogin" element={<AdminLogin />} />
       <Route path="/userInfo" element={<RouteControll> <UserInfo /> </RouteControll>}/>
       <Route path="/favorite" element={<RouteControll> <Favorite keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} /> </RouteControll>}/>
     </Routes>
