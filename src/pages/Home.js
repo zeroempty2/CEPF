@@ -20,12 +20,24 @@ import { URL_VARIABLE } from "./export/ExportUrl";
             return map;
         });
         const [isLoadingFavorite, setIsLoadingFavorite] = useState(true);
+        const [isLoading, setIsLoading] = useState(false); // 데이터 로딩 상태
+        const [isWaiting, setIsWaiting] = useState(false); // 텀을 두기 위한 상태
 
+
+        const waitForNextLoad = () => {
+            setIsWaiting(true); 
+            setTimeout(() => {
+                setIsWaiting(false); 
+            }, 1000);
+        };
         const loadMoreData = () => {
-            if (page < totalPage - 1) {
+            if (page < totalPage - 1 && !isLoading && !isWaiting) {
+                setIsLoading(true); 
+                waitForNextLoad();
                 setPage(prevPage => prevPage + 1);
             }
         };
+
         const handleMoveStart = () => {
             window.scrollTo({
               top: 0, 
@@ -38,7 +50,7 @@ import { URL_VARIABLE } from "./export/ExportUrl";
             const scrollHeight = document.body.scrollHeight;
             const windowHeight = window.innerHeight;
             window.scrollTo({
-              top: scrollHeight - windowHeight - 100, // 최하단보다  위로 이동
+              top: scrollHeight - windowHeight - 100, // 최하단보다 위로 이동
               behavior: 'smooth' 
             });
           };
@@ -112,25 +124,49 @@ import { URL_VARIABLE } from "./export/ExportUrl";
         useEffect(() => {
             if (page > 0) {
                 fetchProducts(page);
+                setIsLoading(false);
             }
         }, [page]);
 
+        // useEffect(() => {
+        //     const handleScroll = throttle(() => {
+        //         if (loaderRef.current) {
+        //             const loaderPosition = loaderRef.current.getBoundingClientRect().top;
+        //             const windowHeight = window.innerHeight;
+        //             if (loaderPosition <= windowHeight && page < totalPage - 1) {
+        //                 loadMoreData();
+        //             }
+        //         }
+        //     }, 500); // 스크롤 페이지 로딩시 500ms 텀
+        
+        //     window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        //     return () => window.removeEventListener('scroll', handleScroll);
+        // }, [page, totalPage]); 
+
         useEffect(() => {
-            const handleScroll = throttle(() => {
-                if (loaderRef.current) {
-                    const loaderPosition = loaderRef.current.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    if (loaderPosition <= windowHeight && page < totalPage - 1) {
-                        loadMoreData();
-                    }
+            const observer = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (entry.isIntersecting && !isLoading && !isWaiting) {
+                    loadMoreData();
                 }
-            }, 500); // 스크롤 페이지 로딩시 500ms 텀
+            }, {
+                root: null, // 뷰포트 기준
+                rootMargin: '0px',
+                threshold: 0.1 // 10%가 화면에 보이면 트리거
+            });
         
-            window.addEventListener('scroll', handleScroll, { passive: true });
+            if (loaderRef.current) {
+                observer.observe(loaderRef.current); // loaderRef를 감시
+            }
         
-            return () => window.removeEventListener('scroll', handleScroll);
-        }, [page, totalPage]); 
-        
+            return () => {
+                if (loaderRef.current) {
+                    observer.unobserve(loaderRef.current); // 컴포넌트가 언마운트되면 관찰 해제
+                }
+            };
+        }, [isLoading, page, totalPage, isWaiting]); 
+
         if (isLogedIn && isLoadingFavorite) {
             return <div>Loading...</div>; 
         }
