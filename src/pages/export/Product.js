@@ -7,41 +7,46 @@ import { URL_VARIABLE } from "./ExportUrl";
 
 
 
-const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePage}) => {
-
-    const formatPrice = (price) => {
-        if (price.includes('원')) {
-            return price.replace('원', '');
-        }
-        else if (price.includes('가격정보 없음')){
-            setNonPrice(true);
-        }
-        return price;
-    };
-
-
+const Product = ({ product, isLogedIn, favoriteData}) => {
     const cuImg = '/CU.png';
     const emartImg = '/Emart24.png';
     const gs25Img = '/GS25.png';
 
-    const formattedPrice = formatPrice(product.productPrice);
     const formattedEventClassification = product.eventClassification;
     const [isFavorite,setIsFavorite] = useState(false);
-    const [nonPrice,setNonPrice] = useState(false);
+
     const navigate = useNavigate();
     const location = useLocation();
     const [isDum,setIsDum] = useState(false);
     const [dumOpen,setDumOpen] = useState(false);
+    const [formattedPrice,setFormattedPrice] = useState('가격정보 없음');
+    const [nonPrice,setNonPrice] = useState(false);
+
+
+    const formatPrice = (price) => {
+        if (!price) {
+            setNonPrice(true); 
+        } 
+        else if (price.includes('원')) {
+            setNonPrice(false);
+            setFormattedPrice(price.replace('원', ''));
+        } 
+        else if (price.includes('가격정보 없음')) {
+            setNonPrice(true);
+        }
+        else{
+            setNonPrice(false);
+            setFormattedPrice(price);
+        }
+    };
 
     const checkIsdum = (product) => {
         if(product.eventClassification.includes("덤")){
             setIsDum(true);
         }
     }
-    const checkIfFav = (product, favoriteData) => {
-        if(isFavoritePage){
-            return;
-        }
+
+    const checkIfFav =  (product, favoriteData) => {
         const favoriteInfo = favoriteData.get(product.productName);
         if (favoriteInfo &&
             favoriteInfo.convenienceClassification === product.convenienceClassification &&
@@ -58,7 +63,8 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
                 productName: product.productName,
                 productImg: product.productImg,
                 convenienceClassification : product.convenienceClassification,
-                eventClassification: product.eventClassification
+                eventClassification: product.eventClassification,
+                productHash: product.productHash
             } ,{
                 headers: {
                   Authorization: `${localStorage.getItem('jwtToken')}`
@@ -85,27 +91,43 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
 
     const deleteFavorite = async () => {
         try {
-            await requestFavorite();
-            setIsFavorite(false);
-            if(isFavoritePage){
-                fetchProducts(); 
-            }
+          await requestFavorite(); 
+          setIsFavorite(false);
         } catch (error) {
-            console.error(error);
+          console.error("즐겨찾기 삭제 중 오류 발생:", error);
         }
-    };
+      };
 
     const handleDumButton = () =>{
         dumOpen ? setDumOpen(false) : setDumOpen(true);
     }
 
     useEffect(() => {
+        setIsDum(false);
         checkIsdum(product);
         checkIfFav(product,favoriteData);
+        formatPrice(product.productPrice);
     },[]);
 
+    // useEffect(() => {
+    //     const fetchProductData = async () => {
+    //         if (!product) return;
+    //         try {
+    //             checkIsdum(product);
+    //             checkIfFav(product, favoriteData);
+    //             formatPrice(product.productPrice);
+    //         } catch (error) {
+    //             console.error('Error loading product data:', error);
+    //         }
+    //     };
+
+    //     fetchProductData();
+    // }, [product, favoriteData]);
+
+
+
     return (
-        <li className={`item ${(isFavorite || isFavoritePage)? 'favorite' : ''}`}>
+        <li className={`item ${(isFavorite)? 'favorite' : ''}`}>
                      {isDum && 
                 <div className = 'show-dum' onClick={handleDumButton}>
                     <span>
@@ -150,7 +172,7 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
             <div className='product-name'>{product.productName}</div>
             {nonPrice &&  
                 <div className='product-price'>
-                    <span className="bold">{formattedPrice}</span>
+                    <span className="bold">가격정보 없음</span>
                 </div>
             }
             {!nonPrice &&  
@@ -177,11 +199,11 @@ const Product = ({ product, isLogedIn, favoriteData, fetchProducts, isFavoritePa
                 </div>
                 </>
             )}
-            {((isLogedIn && !isFavorite) || isFavoritePage) &&
+            {((isLogedIn && !isFavorite)) &&
                 <div className='add-favorite' onClick={addFavorite}>
                 </div>
             }
-            {((isLogedIn && isFavorite) || isFavoritePage)&&
+            {((isLogedIn && isFavorite))&&
             <div className='delete-favorite' onClick={deleteFavorite}>
             </div>
             }

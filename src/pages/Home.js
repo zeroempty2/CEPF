@@ -74,15 +74,14 @@ import { URL_VARIABLE } from "./export/ExportUrl";
         };
 
         const updateFavoriteData = (response) => {
-            setFavoriteData(prevMap => {
-            const newMap = new Map(prevMap);
-        
+            setFavoriteData(new Map()); 
             response.forEach(item => {
                 const { productName, convenienceClassification, eventClassification } = item;
-                newMap.set(productName, { convenienceClassification, eventClassification });
-            });
-        
-            return newMap;
+                setFavoriteData(prevMap => {
+                    const newMap = new Map(prevMap);
+                    newMap.set(productName, { convenienceClassification, eventClassification });
+                    return newMap;
+                });
             });
         };
 
@@ -174,7 +173,7 @@ import { URL_VARIABLE } from "./export/ExportUrl";
     return (
         <ul className="item-list">
           {products.map((product, index) => (
-     <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} fetchProducts={{}} isFavoritePage={false}/>
+     <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} isFavoritePage={false}/>
 ))}
         <div className="button_group">
             <button className="move_start" onClick={handleMoveStart}>▲</button>
