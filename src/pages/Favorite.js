@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { URL_VARIABLE } from "./export/ExportUrl";
 import './css/Favorite.css';
-import Product from './export/Product';
+import FavoriteProduct from './export/FavoriteProduct';
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const [pageRange, setPageRange] = useState([0, 4]);  
@@ -107,6 +107,9 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
 
     const handleTabClick = (tabContent) => {
       setActiveTab(tabContent);
+      setProduct([]);
+      setPage(0);
+      fetchFavoriteFirstPage();
     };
 
     const navigate = useNavigate();
@@ -114,19 +117,54 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
     const fetchFavorite = async() => {
         try{
             if(localStorage.getItem('jwtToken') === null) return;
- 
-            const response = await axios.post(`${URL_VARIABLE}favorite/check?page=${page}&size=4`,{
-              keyword: keyword,
-              convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-              inProgress: activeTab
-            } ,{
-                headers: {
-                  Authorization: `${localStorage.getItem('jwtToken')}`
-                }
-              });
-            setProduct(response.data.content);
-            setTotalPage(response.data.totalPages);
+            if(activeTab === "전체"){
+              const response = await axios.post(`${URL_VARIABLE}favorite/all?page=${page}&size=4`,{
+                keyword: keyword,
+                convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+                inProgress: activeTab,
+                currentPage : page + 1
+              } ,{
+                  headers: {
+                    Authorization: `${localStorage.getItem('jwtToken')}`
+                  }
+                });
+              setProduct(response.data.content);
+              setTotalPage(response.data.totalPages);
+            }
+
+            else if(activeTab === "행사중"){
+              const response = await axios.post(`${URL_VARIABLE}favorite/during?page=${page}&size=4`,{
+                keyword: keyword,
+                convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+                inProgress: activeTab,
+                currentPage : page + 1
+              } ,{
+                  headers: {
+                    Authorization: `${localStorage.getItem('jwtToken')}`
+                  }
+                });
+              setProduct(response.data.content);
+              setTotalPage(response.data.totalPages);
+            }
+
+            else{
+              const response = await axios.post(`${URL_VARIABLE}favorite/end?page=${page}&size=4`,{
+                keyword: keyword,
+                convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+                inProgress: activeTab,
+                currentPage : page + 1
+              } ,{
+                  headers: {
+                    Authorization: `${localStorage.getItem('jwtToken')}`
+                  }
+                });
+
+              setProduct(response.data.content);
+              setTotalPage(response.data.totalPages);
+            }
         }   
         catch(error){
             console.error(error);
@@ -134,19 +172,82 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
         }
     }
 
+    const fetchFavoriteFirstPage = async() => {
+      try{
+          if(localStorage.getItem('jwtToken') === null) return;
+          if(activeTab === "전체"){
+            const response = await axios.post(`${URL_VARIABLE}favorite/all?page=${0}&size=4`,{
+              keyword: keyword,
+              convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+              inProgress: activeTab,
+              currentPage : 1
+            } ,{
+                headers: {
+                  Authorization: `${localStorage.getItem('jwtToken')}`
+                }
+              });
+            setProduct(response.data.content);
+            setTotalPage(response.data.totalPages);
+          }
+
+          else if(activeTab === "행사중"){
+            const response = await axios.post(`${URL_VARIABLE}favorite/during?page=${0}&size=4`,{
+              keyword: keyword,
+              convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+              inProgress: activeTab,
+              currentPage : 1
+            } ,{
+                headers: {
+                  Authorization: `${localStorage.getItem('jwtToken')}`
+                }
+              });
+            setProduct(response.data.content);
+            setTotalPage(response.data.totalPages);
+          }
+
+          else{
+            const response = await axios.post(`${URL_VARIABLE}favorite/end?page=${0}&size=4`,{
+              keyword: keyword,
+              convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
+              inProgress: activeTab,
+              currentPage : 1
+            } ,{
+                headers: {
+                  Authorization: `${localStorage.getItem('jwtToken')}`
+                }
+              });
+            setProduct(response.data.content);
+            setTotalPage(response.data.totalPages);
+          }
+      }   
+      catch(error){
+          console.error(error);
+          navigate("/");
+      }
+  }
+
     useEffect(()=>{
         fetchFavorite();
     },[])
 
     useEffect(() => {
+      if(page > 0){
         fetchFavorite(page);
+      }
     }, [page]);
 
+  //   useEffect(() => {
+  //     setPage(0);  
+  // }, [activeTab, keyword, selectedStore, selectedEvent]);
 
     useEffect(() => {
-      fetchFavorite();
+      setProduct([]);
       setPage(0);
-  }, [keyword, selectedStore, selectedEvent,activeTab]);
+      fetchFavoriteFirstPage();
+  }, [keyword, selectedStore, selectedEvent]);
 
     return (
         <>
@@ -175,9 +276,9 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
         {product.length === 0 ? (
             <div className="favorite-non">즐겨찾기된 상품이 없습니다.</div>
           ) :(<div className="favorite-list">
-          { product.map((item) => (
-             <Product key={item.productId} product={item} isLogedIn={true} favoriteData={{}} fetchProducts={fetchFavorite} isFavoritePage={true}/>
-           )) }  
+       { product.map((item) => (
+    <FavoriteProduct key={item.productId} product={item} isLogedIn={true} fetchProducts={fetchFavorite} isFavoritePage={true} activeTab = {activeTab}/>
+))}
        </div>
       )}
  
