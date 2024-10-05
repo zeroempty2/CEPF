@@ -109,13 +109,38 @@ import { URL_VARIABLE } from "./export/ExportUrl";
             }
         };
 
+        
+        const fetchFirstProducts = async () => {
+            try {
+                const response = await axios.post(
+                    `${URL_VARIABLE}products?page=${0}&size=10`,
+                    {
+                        keyword: keyword,
+                        convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
+                        eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                const data = Array.isArray(response.data.content) ? response.data.content : [];
+                setProducts(prevProducts => [...prevProducts, ...data]);
+                setTotalPage(response.data.totalPages);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+
         useEffect(() => {
             const initializePage = async () => {
                 setIsLoadingFavorite(true);
                 await fetchFavorite(); 
                 setProducts([]);
                 setPage(0);
-                fetchProducts(0);
+                fetchFirstProducts();
             };
             initializePage();
         }, [keyword, selectedStore, selectedEvent]);
