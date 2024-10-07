@@ -296,6 +296,18 @@
     opacity: 1; 
 }
 
+.product-non{
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 480px;
+    margin-top: 250px;
+    user-select: none;
+  }
 .loader{
     padding-bottom: 20px;
 }

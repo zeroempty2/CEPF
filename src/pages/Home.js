@@ -10,7 +10,7 @@ import { URL_VARIABLE } from "./export/ExportUrl";
     const Home = ({keyword, selectedStore, selectedEvent}) => {
         const navigate = useNavigate();
         const loaderRef = useRef(null); 
-        
+
         const [products, setProducts] = useState([]);
         const [page, setPage] = useState(0);
         const [totalPage, setTotalPage] = useState(0);
@@ -196,16 +196,23 @@ import { URL_VARIABLE } from "./export/ExportUrl";
         }
 
     return (
-        <ul className="item-list">
-          {products.map((product, index) => (
-     <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} isFavoritePage={false}/>
-))}
-        <div className="button_group">
-            <button className="move_start" onClick={handleMoveStart}>▲</button>
-            <button className="move_end" onClick={handleMoveEnd}>▼</button>
-        </div>
- <div className='loader' ref={loaderRef}></div>
+    <>
+    {products.length === 0 ? (
+        <div className="product-non">상품이 없습니다.</div>
+    ) : (
+        <ul className="item-list">     
+            {products.map((product, index) => (
+            <Product key={`${product.productId}-${index}`} product={product} isLogedIn={isLogedIn} favoriteData={favoriteData} isFavoritePage={false}/> ))
+            }
+            <div className="button_group">
+                <button className="move_start" onClick={handleMoveStart}>▲</button>
+                <button className="move_end" onClick={handleMoveEnd}>▼</button>
+            </div>
+            <div className='loader' ref={loaderRef}></div> 
         </ul>
+    )
+    }
+    </>
     );
 };
 
