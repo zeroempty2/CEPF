@@ -107,9 +107,6 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
 
     const handleTabClick = (tabContent) => {
       setActiveTab(tabContent);
-      setProduct([]);
-      setPage(0);
-      fetchFavoriteFirstPage();
     };
 
     const navigate = useNavigate();
@@ -174,6 +171,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
 
     const fetchFavoriteFirstPage = async() => {
       try{
+        console.log(activeTab);
           if(localStorage.getItem('jwtToken') === null) return;
           if(activeTab === "전체"){
             const response = await axios.post(`${URL_VARIABLE}favorite/all?page=${0}&size=4`,{
@@ -248,6 +246,12 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
       setPage(0);
       fetchFavoriteFirstPage();
   }, [keyword, selectedStore, selectedEvent]);
+
+      useEffect(()=>{
+        setProduct([]);
+        setPage(0);
+        fetchFavoriteFirstPage();
+    },[activeTab]);
 
     return (
         <>
