@@ -118,9 +118,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
               const response = await axios.post(`${URL_VARIABLE}favorite/all?page=${page}&size=4`,{
                 keyword: keyword,
                 convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-                inProgress: activeTab,
-                currentPage : page + 1
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
               } ,{
                   headers: {
                     Authorization: `${localStorage.getItem('jwtToken')}`
@@ -134,9 +132,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
               const response = await axios.post(`${URL_VARIABLE}favorite/during?page=${page}&size=4`,{
                 keyword: keyword,
                 convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-                inProgress: activeTab,
-                currentPage : page + 1
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
               } ,{
                   headers: {
                     Authorization: `${localStorage.getItem('jwtToken')}`
@@ -150,9 +146,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
               const response = await axios.post(`${URL_VARIABLE}favorite/end?page=${page}&size=4`,{
                 keyword: keyword,
                 convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-                inProgress: activeTab,
-                currentPage : page + 1
+                eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
               } ,{
                   headers: {
                     Authorization: `${localStorage.getItem('jwtToken')}`
@@ -177,9 +171,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
             const response = await axios.post(`${URL_VARIABLE}favorite/all?page=${0}&size=4`,{
               keyword: keyword,
               convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-              inProgress: activeTab,
-              currentPage : 1
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
             } ,{
                 headers: {
                   Authorization: `${localStorage.getItem('jwtToken')}`
@@ -193,9 +185,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
             const response = await axios.post(`${URL_VARIABLE}favorite/during?page=${0}&size=4`,{
               keyword: keyword,
               convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-              inProgress: activeTab,
-              currentPage : 1
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
             } ,{
                 headers: {
                   Authorization: `${localStorage.getItem('jwtToken')}`
@@ -209,9 +199,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
             const response = await axios.post(`${URL_VARIABLE}favorite/end?page=${0}&size=4`,{
               keyword: keyword,
               convenienceClassifications: selectedStore.includes("ALL") ? [] : selectedStore,
-              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent,
-              inProgress: activeTab,
-              currentPage : 1
+              eventClassifications: selectedEvent.includes("전체") ? [] : selectedEvent
             } ,{
                 headers: {
                   Authorization: `${localStorage.getItem('jwtToken')}`
