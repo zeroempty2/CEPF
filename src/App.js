@@ -1,6 +1,7 @@
 import React,{useState,useRef} from "react";
 import {Routes,Route,Link,useNavigate,useLocation} from "react-router-dom";
 import Admin from './pages/Admin';
+import AboutSite from './pages/AboutSite';
 import AdminLogin from './pages/AdminLogin';
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp"
@@ -140,8 +141,18 @@ function App() {
     else {navigate("/login")}
   }
 
+  const getClassName = (pathname) => {
+    if (pathname === '/signup' || pathname === '/login' || pathname === '/userInfo') {
+      return 'no-style';
+    } else if (pathname === '/about-site') {
+      return 'about-site-style';
+    } else {
+      return 'App';
+    }
+  };
+
   return (
-    <div className={`App ${location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/userInfo' ? 'no-style' : ''}`}>
+    <div className={getClassName(location.pathname)}>
            {(location.pathname === '/' || location.pathname === '/favorite') && (
         <>
 
@@ -243,6 +254,7 @@ function App() {
       <Route path="/login" element={<RouteControll> <Login /> </RouteControll>}/>
       <Route path="/update" element={<Update />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/about-site" element={<AboutSite />} />
       <Route path="/adminLogin" element={<AdminLogin />} />
       <Route path="/userInfo" element={<RouteControll> <UserInfo /> </RouteControll>}/>
       <Route path="/favorite" element={<RouteControll> <Favorite keyword={keyword} selectedStore={selected} selectedEvent={eventSelected} /> </RouteControll>}/>
