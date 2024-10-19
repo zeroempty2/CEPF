@@ -4,8 +4,10 @@
     overflow: hidden;
     position: relative;
 }
+
 .page-one {
-    height: 85vh;
+    position: absolute;
+    top:35%;
     font-size: 35px;
     font-weight: bold;
     color: #222222; 
@@ -17,7 +19,9 @@
     align-items: center;
     flex-direction: column;
   }
- 
+ .page-notice{
+  font-size: 30px;
+ }
 .pages-wrapper {
   position: absolute;
   top: 0;
@@ -107,7 +111,7 @@
     font-weight: bold;
     color: #222222; 
     font-family: "Nanum Gothic", sans-serif;
-    margin-left: 50px;
+    left: 3%;
 }
 
 
@@ -143,8 +147,7 @@
 .horizontal-line {
     border-top: 4px solid rgba(0, 0, 0, 0.699); 
     width: 95%;
-    position: absolute;
-    top: 8%; 
+    margin-top:6%;
     left: 0;
     border-radius: 10px;
 }
@@ -156,4 +159,119 @@
     color: #222222; 
     font-family: "Nanum Gothic", sans-serif;
 }
+.index{
+  width: 165px;
+  box-sizing: border-box; 
+  margin-left: 10px;
+  margin-top: 5px;
+}
 
+.index-box {
+  width: 190px;
+  height: 388px;
+  background-color: transparent;
+  position: fixed;
+  top: 50%;
+  right: 80px;
+  transform: translateY(-50%);
+  box-shadow: none;
+  border-radius: 10px;
+  font-family: "Nanum Gothic", sans-serif;
+  user-select: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.index-box.left {
+  left: 80px;
+  right: unset;
+  transform: translateY(-50%) scaleX(-1); /* 좌우반전 */
+}
+
+.index-box:hover {
+  background-color: rgb(245, 245, 245); /* 마우스를 올렸을 때 배경색 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+.index-box.left:hover .page-index-title {
+  margin-right: 5px;
+  margin-top: 15px;
+  width: 165px;
+  height: 15px;
+  background-color: transparent; 
+  text-indent: 0; /* 텍스트 보여주기 */
+  transform: translateY(-50%) scaleX(-1); /* 좌우반전 */
+}
+.index-box.left:hover .page-index-element {
+  margin-left: -5px;
+  margin-top: 10px;
+  width: 165px;
+  height: 15px;
+  background-color: transparent; 
+  text-indent: 0; /* 텍스트 보여주기 */
+  transform: translateY(-50%) scaleX(-1); /* 좌우반전 */
+  
+}
+
+
+.index-box:hover .page-index-title  {
+  margin-left: 5px;
+  margin-top: 10px;
+  width: 165px;
+  height: 15px;
+  background-color: transparent; 
+  text-indent: 0; /* 텍스트 보여주기 */
+}
+
+.index-box:hover .page-index-element  {
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 165px;
+  height: 15px;
+  background-color: transparent; 
+  text-indent: 0; /* 텍스트 보여주기 */
+}
+
+
+
+.page-index-title {
+  height: 8px;
+  width: 70px;
+  background-color: rgba(0, 0, 0, 0.2); /* 기본적으로 얇은 막대 */
+  margin-left: 5px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-indent: -9999px; /* 텍스트 숨김 */
+}
+
+.page-index-element{
+  height: 8px;
+  width: 45px;
+  background-color: rgba(0, 0, 0, 0.2); /* 기본적으로 얇은 막대 */
+  margin-left: 5px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-indent: -9999px; /* 텍스트 숨김 */
+  font-size: 13px;
+}
+.title-div{
+  width: 1265px;
+  height: 800px;
+  position: absolute;
+  top: 0%;
+  left: 1px;
+}
+
+.index.active .page-index-title,
+.index.active .page-index-element {
+  background-color: #007bff; /* 활성화된 막대의 색상 */
+  text-decoration: underline; /* hover 시 밑줄 추가 */
+}
+
+.index-box.left:hover .page-index-title,
+.index-box.left:hover .page-index-element,
+.index-box:hover .page-index-title,
+.index-box:hover .page-index-element {
+  background-color: transparent; /* hover시 색상 없애기 */
+
+}
