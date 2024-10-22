@@ -105,20 +105,21 @@
 }
 
 .about-site-index{
-    position: absolute;
-    top:2%;
+    margin-top: 20px;
+    margin-left: 20px;
     font-size: 35px;
     font-weight: bold;
     color: #222222; 
     font-family: "Nanum Gothic", sans-serif;
     left: 3%;
+    user-select: none;
 }
 
 
 .vertical-line {
     margin-top : 80px;
     width: 5px;
-    height: 70vh; 
+    height:78vh;
     background-color: rgba(0, 0, 0, 0.63);
     position: absolute; 
     left: 10%; 
@@ -141,13 +142,13 @@
 }
 
 .planning-intention-space{
-    height: 20px;
+    height: 15px;
 }
 
 .horizontal-line {
     border-top: 4px solid rgba(0, 0, 0, 0.699); 
     width: 95%;
-    margin-top:6%;
+    margin-top:2%;
     left: 0;
     border-radius: 10px;
 }
@@ -168,7 +169,7 @@
 
 .index-box {
   width: 190px;
-  height: 388px;
+  height: 420px;
   background-color: transparent;
   position: fixed;
   top: 50%;
@@ -249,14 +250,14 @@
   width: 45px;
   background-color: rgba(0, 0, 0, 0.2); /* 기본적으로 얇은 막대 */
   margin-left: 5px;
-  margin-top: 20px;
+  margin-top: 21px;
   border-radius: 5px;
   text-indent: -9999px; /* 텍스트 숨김 */
   font-size: 13px;
 }
 .title-div{
   width: 1265px;
-  height: 800px;
+  height: 100px;
   position: absolute;
   top: 0%;
   left: 1px;
@@ -274,4 +275,54 @@
 .index-box:hover .page-index-element {
   background-color: transparent; /* hover시 색상 없애기 */
 
+}
+
+.page-picture-area{
+  position: absolute;
+  left: 5%;
+  top: 12%;
+}
+
+.page-explanation-area{
+  position: absolute;
+  left: 5%;
+  bottom: 8%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222222; 
+  font-family: "Nanum Gothic", sans-serif;
+  width: 1200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.normal-page{
+  width: 1000px;
+  height: 450px;
+  margin-left: 60px;
+  object-fit: contain; 
+}
+
+
+.login-page{
+  width: 1000px;
+  height: 450px;
+  margin-left: 60px;
+  object-fit: contain; 
+}
+
+.react-icon{
+  width: 1000px;
+  height: 400px;
+  margin-left: 60px;
+  object-fit: contain; 
+}
+
+.spring-boot-icon{
+    width: 750px;
+    height: 400px;
+    margin-left: 175px;
+    object-fit: contain; 
 }
