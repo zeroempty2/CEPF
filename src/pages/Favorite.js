@@ -6,10 +6,13 @@ import { URL_VARIABLE } from "./export/ExportUrl";
 import './css/Favorite.css';
 import FavoriteProduct from './export/FavoriteProduct';
 
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages, currentPage, onPageChange, firstPageChange}) => {
     const [pageRange, setPageRange] = useState([0, 4]);  
 
     const handlePageClick = (pageNum) => {
+      if(pageNum === 0){
+        firstPageChange();
+      }
       onPageChange(pageNum);
     };
 
@@ -276,7 +279,7 @@ const Favorite = ({keyword,selectedStore,selectedEvent}) => {
  
         
         {product.length !== 0 && (
-                  <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} />
+                  <Pagination totalPages={totalPage} currentPage={page} onPageChange={handlePageChange} firstPageChange={fetchFavoriteFirstPage}/>
                 )}
         
         </>
