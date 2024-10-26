@@ -8,6 +8,7 @@
     justify-content: center;
     flex-direction: column;
     min-height: 450px;  
+    width: 500px;
     padding: 20px;  
     box-sizing: border-box; 
 }
@@ -164,8 +165,8 @@
     height: 35px;
     border-radius: 10px;
     color: white;
-    right: 22px;
-    top: 362px;
+    right: 744px;
+    top: 360px;
     font-family: "Nanum Gothic", sans-serif;
     font-style: normal;
     font-weight: 550;
