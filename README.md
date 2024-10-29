@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+## CEP(Convenience store Event Products) 편의점 행사상품 조회
+<p style="text-align: center">
+<span style="font-size: 20px; font-weight: bold;"></span><br><br>
+편의점 행사상품을 편의점과 이벤트별로 검색할 수 있고,  즐겨찾기 기능을 사용할 수 있는 웹페이지입니다. <br> 프론트엔드는 React를 기반으로, 백엔드는 Spring Boot를 기반으로 개발되었습니다.
+</p>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
+- **프로젝트 배포 Url** : https://eventprod.store
+<br>
 
-## Available Scripts
+- **프로젝트 소개 Url** : https://eventprod.store/about-site
+<br>
 
-In the project directory, you can run:
+- **프론트엔드 Github** : https://github.com/zeroempty2/CEPF
+<br>
 
-### `npm start`
+- **백엔드 GitHub** :  https://github.com/zeroempty2/CEP
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **api 명세** :  https://docs.google.com/spreadsheets/d/1dO67-8X0fWnsUL8AAtTOKoPh1EhYiT8FYMDhoy7MQqY/edit?gid=0#gid=0
+ <br>
+ 
+ ---
+ 
+ ## 기술 스택
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **백엔드**: Java, Spring Boot, QueryDSL, Selenium, jsoup, MySQL, AWS EC2, docker
+- **프론트엔드**: JavaScript, CSS, HTML, React
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ ---
 
-### `npm run build`
+## 프로젝트 소개
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 편의점 행사상품을 편의점과 이벤트별로 검색할 수 있고,  즐겨찾기 기능을 사용할 수 있는 웹페이지입니다.  프론트엔드는 React를 기반으로, 백엔드는 Spring Boot를 기반으로 개발되었습니다.
+- jsoup과 selenium, chromedriver를 이용하여 편의점 행사상품 페이지에서 데이터를 자동으로 수집해 저장하게 했습니다.
+- QueryDSL을 사용하여 동적 쿼리를 처리하고, 페이징 처리를 하였습니다.
+- Spring Scheduler를 활용하여 주기적 웹 크롤링 작업 자동화를 하였습니다.
+- Spring Scheduler와 SpringBoot Custom Filter를 통해 크롤링 작업을 하고 있는 특정 시간대에는 API접근을 하지 못하게 제한하였습니다.
+- React를 사용해 웹 페이지 무한스크롤 구현을 했으며, 모바일 환경의 ui와 작동성을 고려해 구현하였습니다.
+- Github Action과 dockerHub를 통한 ci/cd 파이프라인을 구축하였습니다.
+- docker를 통한 서비스 분리와 로드밸런싱을 구현했습니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  <br>
+  
+ ---
+## 프로젝트 워크플로우
+![워크플로우2 drawio](https://github.com/user-attachments/assets/6b0d66f8-5e0e-4153-b619-94f7fb63c855)
